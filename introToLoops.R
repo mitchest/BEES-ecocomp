@@ -82,7 +82,7 @@ for (i in 1:length(iris$Sepal.Length)) {
 
 
 # lets get some summary information using a loop
-unique.species = unique(iris$Species) # do we know the unique() function
+unique.species = unique(iris$Species) # do we know the unique() function?
 iris.summary = list()
 for (species in unique.species) {
   look.at.rows = iris$Species==species
@@ -92,18 +92,16 @@ iris.summary
 iris.summary$setosa
 
 
-# more than one for loop?
+# more than one for loop??
+# lets calculate how mean varies with random sample size 1:n, per species
 iris.sample = list()
+n = 30
 for (species in unique(iris$Species)) {
-  #print(species)
-  temp = c()
-  for (i in c(1:30)) {
-    temp = append(temp, mean(sample(iris$Sepal.Length[iris$Species==species], i)))
-    #print(mean(sample(iris$Sepal.Length[iris$Species==species], i)))
+  temp = numeric(n)
+  for (i in 1:n) {
+    temp[i] = mean(sample(iris$Sepal.Length[iris$Species==species], i))
   }
   iris.sample[[species]] = temp
-  #print(species)
-  #print(sd(iris.sample[[species]]))
 }
 
 
@@ -113,12 +111,11 @@ setwd()
 
 # save the subsets we created above as separate files
 for (i in 1:length(iris.summary)) {
-  write.csv(iris.summary[[i]], file=paste0(names(iris.summary)[i], ".csv")) # could do somethign better here to name the files
+  write.csv(iris.summary[[i]], file=paste0(names(iris.summary)[i], ".csv")) # could use paste() to make more informative filenames
 }
 
 # get a list of target files and read them in
 filenames = list.files(getwd(), pattern="*.csv", full.names=TRUE)
-filenames
 
 var1 = read.csv(filenames[1])
 
@@ -128,8 +125,10 @@ for (file in filenames) {
 }
 
 
-
-
+##############
+## HOMEWORK ##
+##############
+# Using a loop, write your own version of the unique() function
 
 
 
