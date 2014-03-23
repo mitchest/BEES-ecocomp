@@ -130,8 +130,30 @@ for (file in filenames) {
 ##############
 # Using a loop, write your own version of the unique() function
 
+# SOLUTION:
+# this is by no means the only or best way, but this is a nice logical implementation which is pretty quick
+# as long as your number of unique elements is not insanely large
 
+# the for loop and if statement:
+unique.items = character()
+for (i in iris$Species) {
+  if (!(i %in% unique.items)) {
+    unique.items = append(unique.items, i)
+  }
+}
+print(unique.items)
 
+# if you wanted to wrap it in a function:
+unique = function(x) {
+  unique.items = character()
+  for (i in iris$Species) {
+    if (!(i %in% unique.items)) {
+      unique.items = append(unique.items, i)
+    }
+  }
+  return(unique.items)
+}
+unique(iris$Species)
 
 
 
