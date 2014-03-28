@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Subsetting in R: a very brief intro&hellip;</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Subsetting in R: a very brief intro&hellip;</h1>
+
+<p>First things first, this is an R Markdown document.</p>
+
+<p>Markdown is a simple formatting syntax that you can use to do wonderful things e.g. authoring dynamic documents exactly like this one. More on this later, but for now all that really matters is that all the instructions for this tutorial are provided in plain text while the actual executable R-code is given in the greyed-out code blocks. Please note that for now you can ignore the first and last lines of each code block (backward ticks, curly backwards etc. is not executable R-code).</p>
+
+<p>First thing we&#39;re going to do is load in some data. If you haven&#39;t already, click on &#39;Session&#39; in the Rstudio toolbar and set working directory &ldquo;To Source File Location&rdquo; (assuming you&#39;ve saved this document and the data in the same place).</p>
+
+<p>Now run the single line of code below (ctrl+enter). </p>
+
+<pre><code class="r">traits &lt;- read.csv(&quot;haba_traits.csv&quot;, header = TRUE, na.strings = &quot;&quot;)
+</code></pre>
+
+<p>Getting to know your data better and betterer&hellip;</p>
+
+<pre><code class="r">str(traits)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    90 obs. of  8 variables:
+##  $ X            : int  1 5 11 13 15 21 29 31 35 37 ...
+##  $ status       : Factor w/ 2 levels &quot;introduced&quot;,&quot;native&quot;: 1 2 2 1 1 1 2 1 2 1 ...
+##  $ species      : Factor w/ 90 levels &quot;Acer rubrum&quot;,..: 18 32 41 28 30 29 47 58 89 4 ...
+##  $ germination  : num  0.11 0.3155 0.29 0.0526 0.0614 ...
+##  $ earlysurvival: num  0.91 0.971 0.949 0.918 0.847 ...
+##  $ adulthood    : num  0.000323 0.1008 0.27209 0.370812 NA ...
+##  $ lifehistory  : Factor w/ 3 levels &quot;annual&quot;,&quot;biennial&quot;,..: 1 1 1 1 1 1 1 1 1 2 ...
+##  $ life_form    : Factor w/ 2 levels &quot;nonwoody&quot;,&quot;woody&quot;: 1 NA NA NA NA NA 1 1 1 NA ...
+</code></pre>
+
+<pre><code class="r">colnames(traits)
+</code></pre>
+
+<pre><code>## [1] &quot;X&quot;             &quot;status&quot;        &quot;species&quot;       &quot;germination&quot;  
+## [5] &quot;earlysurvival&quot; &quot;adulthood&quot;     &quot;lifehistory&quot;   &quot;life_form&quot;
+</code></pre>
+
+<pre><code class="r">dim(traits)
+</code></pre>
+
+<pre><code>## [1] 90  8
+</code></pre>
+
+<pre><code class="r">summary(traits)
+</code></pre>
+
+<pre><code>##        X              status                   species    germination    
+##  Min.   :  1   introduced:26   Acer rubrum         : 1   Min.   :0.0005  
+##  1st Qu.: 79   native    :64   Achillea millefolium: 1   1st Qu.:0.0432  
+##  Median :182                   Agropyron cristatum : 1   Median :0.1682  
+##  Mean   :168                   Alliaria petiolata  : 1   Mean   :0.1829  
+##  3rd Qu.:253                   Andropogon gayanus  : 1   3rd Qu.:0.2641  
+##  Max.   :341                   Anthyllis vulneraria: 1   Max.   :0.6100  
+##                                (Other)             :84                   
+##  earlysurvival     adulthood       lifehistory    life_form 
+##  Min.   :0.000   Min.   :0.00   annual   : 9   nonwoody: 8  
+##  1st Qu.:0.893   1st Qu.:0.06   biennial : 5   woody   : 9  
+##  Median :0.949   Median :0.21   perennial:76   NA&#39;s    :73  
+##  Mean   :0.886   Mean   :0.24                               
+##  3rd Qu.:0.975   3rd Qu.:0.37                               
+##  Max.   :0.999   Max.   :0.76                               
+##                  NA&#39;s   :77
+</code></pre>
+
+<pre><code class="r">head(traits)
+</code></pre>
+
+<pre><code>##    X     status                    species germination earlysurvival
+## 1  1 introduced             Carduus nutans     0.11000        0.9097
+## 2  5     native            Collinsia verna     0.31550        0.9705
+## 3 11     native      Euphrasia officinalis     0.29000        0.9491
+## 4 13 introduced     Centaurea solstitialis     0.05259        0.9181
+## 5 15 introduced Chrysanthemum leucanthemum     0.06140        0.8466
+## 6 21 introduced           Centaurea stoebe     0.06150        0.6501
+##   adulthood lifehistory life_form
+## 1 0.0003234      annual  nonwoody
+## 2 0.1008000      annual      &lt;NA&gt;
+## 3 0.2720896      annual      &lt;NA&gt;
+## 4 0.3708120      annual      &lt;NA&gt;
+## 5        NA      annual      &lt;NA&gt;
+## 6        NA      annual      &lt;NA&gt;
+</code></pre>
+
+<pre><code class="r">hist(as.numeric(traits$germination))
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAolBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZo8AZrU5AAA5ADk5AGU5OWU5OY85ZrU5j485j9plAABlADllAGVlOQBlOTllOY9lZjlltbVltdpltf2POQCPOTmPOWWPZgCPZo+Pj2WPtY+P27WP29qP2/21ZgC1jzm1tWW124+1/rW1/tq1/v3ajznatWXa/rXa/tra/v39tWX924/9/rX9/tr9/v1oLNyNAAAANnRSTlP//////////////////////////////////////////////////////////////////////wChj04xAAAACXBIWXMAAAsSAAALEgHS3X78AAAPm0lEQVR4nO2dC3vbthlGS7t15aZOpaS7ScnSLlbX1lpq3f7/XxsBECRoUREgiZbA95xnqx0KHwDxECBIk8A3W5Dkm0tXAC4D4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREH8WFuNL1yCVVxe/ntw+bbeb2e2T+80zn56Q6eq+uHk8uWpbXzvPwmS6UzGXJty8nhTF3fMRBdSUuXV/srrv6ZC6oPjW5nlxivjTovexnoz2Zh1uNt6LYnRCSV+p/7zzQDmdS7f4sq0Wt0+bmdtzi/KHOcLLf9/+Mbl73sxu/lG25WW5uWx8y+L7cvtTmcjvJpfeRrsWV6WssrVpyqL+a/9hD7Z1mWs7H5PH1CQzRf1nYhO64EUxdRVrV6Os95+uvlUpy+Lut5+qQFvtF5n+EpRnvnRdo6q6rhC3Y6o9ECbpp8lfWLxrLHd/uR05L1zTsXvi23sj3nz6xSV6XhaeymmVvhFfZffsf5pE9lOXay0+yMfl4Y+eL5PqKLRHo3fSrkYt3peyur/7bexLMtV+ken/gvLWdQFljVrf3u6Y1h6wbWE9iTyJJHIB8eE+WN1XX8t0dqt7255uHlf35T5YFFb8yIfdPi0LE1BMTRKzrU7/ouMNst1aHWPTKJ8D8U0+NqX5xBXlgq2BqdvlJut2NSpDpr515W0zrav9ItOwvEq8q5HP0ebmiq6+UZNk56R4Ji4s3v7LjpXKr760u7fsYJf+UDeNzgcZ8aOqq3Rb6/SBeJeyznZr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" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<p>As you can see &#39;traits&#39; is a dataframe comprising individual trait data for 90 plant species.</p>
+
+<p>To access individual variables (columns) in R the most flexible approach is to use bracket notation where the first index is for rows and the second for columns i.e. [R,C]. If we want to access all the observations (rows) in one column we leave the first index blank.</p>
+
+<pre><code class="r">traits[, 2]
+</code></pre>
+
+<pre><code>##  [1] introduced native     native     introduced introduced introduced
+##  [7] native     introduced native     introduced introduced introduced
+## [13] introduced introduced native     native     native     introduced
+## [19] introduced introduced introduced native     native     native    
+## [25] native     native     native     native     native     native    
+## [31] native     native     native     native     native     native    
+## [37] native     native     native     native     native     native    
+## [43] native     native     introduced native     introduced native    
+## [49] native     native     native     native     native     native    
+## [55] introduced native     native     native     native     native    
+## [61] native     native     native     introduced introduced native    
+## [67] introduced native     native     native     native     introduced
+## [73] native     introduced native     native     native     native    
+## [79] native     introduced native     native     native     introduced
+## [85] native     introduced native     native     native     introduced
+## Levels: introduced native
+</code></pre>
+
+<pre><code class="r">traits$germination
+</code></pre>
+
+<pre><code>##  [1] 0.1100000 0.3155000 0.2900000 0.0525915 0.0614000 0.0615000 0.1836000
+##  [8] 0.2644444 0.0220000 0.0327655 0.1700000 0.1728533 0.3624837 0.2163745
+## [15] 0.0004921 0.0195000 0.0360080 0.0010500 0.2003462 0.6100000 0.1997900
+## [22] 0.0160000 0.0330000 0.5770000 0.2470000 0.0171000 0.2337512 0.0420000
+## [29] 0.1750000 0.2857143 0.5200000 0.1902551 0.3147000 0.2060580 0.0916769
+## [36] 0.0212660 0.2031000 0.2750000 0.0154000 0.0213500 0.1270935 0.3673823
+## [43] 0.5053333 0.2430000 0.1959184 0.1605000 0.1665000 0.0553000 0.0854000
+## [50] 0.1115000 0.1073000 0.0285000 0.0060000 0.5075000 0.4651042 0.0210000
+## [57] 0.5665000 0.0050000 0.2500000 0.2630000 0.2390000 0.1012500 0.6043484
+## [64] 0.0065000 0.0580000 0.1349000 0.0333333 0.1000000 0.0966667 0.1830000
+## [71] 0.1200000 0.2900000 0.1866667 0.0205000 0.2699000 0.0870000 0.2667300
+## [78] 0.4362500 0.0549000 0.0274000 0.4450000 0.1078000 0.0470000 0.3293231
+## [85] 0.0418500 0.0120000 0.2000000 0.2499000 0.2242500 0.3797050
+</code></pre>
+
+<p>Or vice versa, if we want to access all the observations in one row we leave the second index blank.</p>
+
+<pre><code class="r">traits[7, ]
+</code></pre>
+
+<pre><code>##    X status               species germination earlysurvival adulthood
+## 7 29 native Heterotheca latifolia      0.1836        0.9526        NA
+##   lifehistory life_form
+## 7      annual  nonwoody
+</code></pre>
+
+<p>How about if we wanted to subset different observations from different variables? The code block below generates a number of different subsets. Before running each line of code, try workout what each one is doing&hellip;</p>
+
+<pre><code class="r">traits[1:6, ]
+</code></pre>
+
+<pre><code>##    X     status                    species germination earlysurvival
+## 1  1 introduced             Carduus nutans     0.11000        0.9097
+## 2  5     native            Collinsia verna     0.31550        0.9705
+## 3 11     native      Euphrasia officinalis     0.29000        0.9491
+## 4 13 introduced     Centaurea solstitialis     0.05259        0.9181
+## 5 15 introduced Chrysanthemum leucanthemum     0.06140        0.8466
+## 6 21 introduced           Centaurea stoebe     0.06150        0.6501
+##   adulthood lifehistory life_form
+## 1 0.0003234      annual  nonwoody
+## 2 0.1008000      annual      &lt;NA&gt;
+## 3 0.2720896      annual      &lt;NA&gt;
+## 4 0.3708120      annual      &lt;NA&gt;
+## 5        NA      annual      &lt;NA&gt;
+## 6        NA      annual      &lt;NA&gt;
+</code></pre>
+
+<pre><code class="r">traits[12, 3]
+</code></pre>
+
+<pre><code>## [1] Echium vulgare
+## 90 Levels: Acer rubrum Achillea millefolium ... Vincetoxicum rossicum
+</code></pre>
+
+<pre><code class="r">traits[, c(2, 4)]
+</code></pre>
+
+<pre><code>##        status germination
+## 1  introduced   0.1100000
+## 2      native   0.3155000
+## 3      native   0.2900000
+## 4  introduced   0.0525915
+## 5  introduced   0.0614000
+## 6  introduced   0.0615000
+## 7      native   0.1836000
+## 8  introduced   0.2644444
+## 9      native   0.0220000
+## 10 introduced   0.0327655
+## 11 introduced   0.1700000
+## 12 introduced   0.1728533
+## 13 introduced   0.3624837
+## 14 introduced   0.2163745
+## 15     native   0.0004921
+## 16     native   0.0195000
+## 17     native   0.0360080
+## 18 introduced   0.0010500
+## 19 introduced   0.2003462
+## 20 introduced   0.6100000
+## 21 introduced   0.1997900
+## 22     native   0.0160000
+## 23     native   0.0330000
+## 24     native   0.5770000
+## 25     native   0.2470000
+## 26     native   0.0171000
+## 27     native   0.2337512
+## 28     native   0.0420000
+## 29     native   0.1750000
+## 30     native   0.2857143
+## 31     native   0.5200000
+## 32     native   0.1902551
+## 33     native   0.3147000
+## 34     native   0.2060580
+## 35     native   0.0916769
+## 36     native   0.0212660
+## 37     native   0.2031000
+## 38     native   0.2750000
+## 39     native   0.0154000
+## 40     native   0.0213500
+## 41     native   0.1270935
+## 42     native   0.3673823
+## 43     native   0.5053333
+## 44     native   0.2430000
+## 45 introduced   0.1959184
+## 46     native   0.1605000
+## 47 introduced   0.1665000
+## 48     native   0.0553000
+## 49     native   0.0854000
+## 50     native   0.1115000
+## 51     native   0.1073000
+## 52     native   0.0285000
+## 53     native   0.0060000
+## 54     native   0.5075000
+## 55 introduced   0.4651042
+## 56     native   0.0210000
+## 57     native   0.5665000
+## 58     native   0.0050000
+## 59     native   0.2500000
+## 60     native   0.2630000
+## 61     native   0.2390000
+## 62     native   0.1012500
+## 63     native   0.6043484
+## 64 introduced   0.0065000
+## 65 introduced   0.0580000
+## 66     native   0.1349000
+## 67 introduced   0.0333333
+## 68     native   0.1000000
+## 69     native   0.0966667
+## 70     native   0.1830000
+## 71     native   0.1200000
+## 72 introduced   0.2900000
+## 73     native   0.1866667
+## 74 introduced   0.0205000
+## 75     native   0.2699000
+## 76     native   0.0870000
+## 77     native   0.2667300
+## 78     native   0.4362500
+## 79     native   0.0549000
+## 80 introduced   0.0274000
+## 81     native   0.4450000
+## 82     native   0.1078000
+## 83     native   0.0470000
+## 84 introduced   0.3293231
+## 85     native   0.0418500
+## 86 introduced   0.0120000
+## 87     native   0.2000000
+## 88     native   0.2499000
+## 89     native   0.2242500
+## 90 introduced   0.3797050
+</code></pre>
+
+<p>That&#39;s all very simple, but what now if want to subset the dataset based on specific criteria, e.g. only select species that are introduced? We still use the bracket notation but with the added help of logical expressions. </p>
+
+<pre><code class="r">unique(traits$status)
+</code></pre>
+
+<pre><code>## [1] introduced native    
+## Levels: introduced native
+</code></pre>
+
+<pre><code class="r">traits[traits$status == &quot;native&quot;, ]
+</code></pre>
+
+<pre><code>##      X status                     species germination earlysurvival
+## 2    5 native             Collinsia verna   0.3155000        0.9705
+## 3   11 native       Euphrasia officinalis   0.2900000        0.9491
+## 7   29 native       Heterotheca latifolia   0.1836000        0.9526
+## 9   35 native           Veronica arvensis   0.0220000        0.9549
+## 15  53 native        Araucaria hunsteinii   0.0004921        0.9851
+## 16  56 native      Araucaria cunninghamii   0.0195000        0.9444
+## 17  59 native       Astrocaryum mexicanum   0.0360080        0.9354
+## 22  76 native        Achillea millefolium   0.0160000        0.0000
+## 23  78 native       Arrhenatherum elatius   0.0330000        0.9562
+## 24  82 native            Ranunculus acris   0.5770000        0.8104
+## 25  86 native         Centaurea corymbosa   0.2470000        0.9564
+## 26  89 native        Carpinus caroliniana   0.0171000        0.9758
+## 27  91 native           Banksia attenuata   0.2337512        0.9923
+## 28  93 native            Lupinus arboreus   0.0420000        0.9441
+## 29  99 native        Anthyllis vulneraria   0.1750000        0.9458
+## 30 100 native        Cecropia obtusifolia   0.2857143        0.0000
+## 31 107 native            Avicennia marina   0.5200000        0.9927
+## 32 108 native          Banksia ericifolia   0.1902551        0.9553
+## 33 114 native     Liquidambar styraciflua   0.3147000        0.9504
+## 34 115 native          Banksia hookeriana   0.2060580        0.9819
+## 35 117 native        Petrophile pulchella   0.0916769        0.9758
+## 36 123 native             Ulmus davidiana   0.0212660        0.9565
+## 37 135 native             Prunus serotina   0.2031000        0.9824
+## 38 138 native                 Acer rubrum   0.2750000        0.9580
+## 39 143 native             Nyssa sylvatica   0.0154000        0.9726
+## 40 149 native               Festuca rubra   0.0213500        0.9728
+## 41 152 native          Tsuga heterophylla   0.1270935        0.8351
+## 42 155 native       Pseudotsuga menziesii   0.3673823        0.9298
+## 43 158 native            Pinus sylvestris   0.5053333        0.8147
+## 44 162 native               Picea mariana   0.2430000        0.8844
+## 46 189 native          Berchemia scandens   0.1605000        0.9978
+## 48 196 native            Carpinus cordata   0.0553000        0.9099
+## 49 197 native           Carpinus japonica   0.0854000        0.8701
+## 50 198 native          Carpinus laxiflora   0.1115000        0.9054
+## 51 199 native        Carpinus tschonoskii   0.1073000        0.8700
+## 52 200 native             Centaurea nigra   0.0285000        0.9527
+## 53 205 native          Cirsium scopulorum   0.0060000        0.4847
+## 54 207 native            Cordia alliodora   0.5075000        0.8579
+## 56 215 native           Danthonia spicata   0.0210000        0.9561
+## 57 218 native       Desmodium paniculatum   0.5665000        0.9767
+## 58 222 native Elaeocarpus photiniaefolius   0.0050000        0.9031
+## 59 224 native          Erianthemum dregei   0.2500000        0.4555
+## 60 229 native        Faramea occidentalis   0.2630000        0.9737
+## 61 230 native              Ficus stupenda   0.2390000        0.8880
+## 62 231 native            Frasera speciosa   0.1012500        0.9101
+## 63 236 native           Hakea polyanthema   0.6043484        0.9939
+## 66 250 native   Lithospermum caroliniense   0.1349000        0.6076
+## 68 253 native             Lueha seemannii   0.1000000        0.9385
+## 69 259 native             Miconia affinis   0.0966667        0.9424
+## 70 260 native            Miconia gracilis   0.1830000        0.9313
+## 71 261 native             Miconia nervosa   0.1200000        0.9587
+## 73 265 native          Ochroma pyramidale   0.1866667        0.8587
+## 75 271 native               Olea europaea   0.2699000        0.9555
+## 76 272 native           Oxalis acetosella   0.0870000        0.9944
+## 77 276 native         Phillyrea latifolia   0.2667300        0.9225
+## 78 278 native             Pinus banksiana   0.4362500        0.9410
+## 79 280 native            Pinus monophylla   0.0549000        0.9268
+## 81 306 native         Ranunculus bulbosus   0.4450000        0.5554
+## 82 307 native           Ranunculus repens   0.1078000        0.8353
+## 83 309 native               Rhus radicans   0.0470000        0.9946
+## 85 313 native               Rumex acetosa   0.0418500        0.9702
+## 87 315 native               Salvia lyrata   0.2000000        0.9842
+## 88 320 native           Shorea stenoptera   0.2499000        0.8256
+## 89 330 native       Tachigalia versicolor   0.2242500        0.8896
+##    adulthood lifehistory life_form
+## 2  0.1008000      annual      &lt;NA&gt;
+## 3  0.2720896      annual      &lt;NA&gt;
+## 7         NA      annual  nonwoody
+## 9         NA      annual  nonwoody
+## 15 0.0009753   perennial      &lt;NA&gt;
+## 16 0.0164978   perennial      &lt;NA&gt;
+## 17 0.0554448   perennial     woody
+## 22        NA   perennial      &lt;NA&gt;
+## 23        NA   perennial      &lt;NA&gt;
+## 24        NA   perennial  nonwoody
+## 25        NA   perennial      &lt;NA&gt;
+## 26        NA   perennial      &lt;NA&gt;
+## 27        NA   perennial      &lt;NA&gt;
+## 28        NA   perennial      &lt;NA&gt;
+## 29        NA   perennial      &lt;NA&gt;
+## 30        NA   perennial      &lt;NA&gt;
+## 31        NA   perennial      &lt;NA&gt;
+## 32        NA   perennial     woody
+## 33        NA   perennial      &lt;NA&gt;
+## 34        NA   perennial      &lt;NA&gt;
+## 35        NA   perennial      &lt;NA&gt;
+## 36        NA   perennial      &lt;NA&gt;
+## 37        NA   perennial     woody
+## 38        NA   perennial      &lt;NA&gt;
+## 39        NA   perennial      &lt;NA&gt;
+## 40        NA   perennial      &lt;NA&gt;
+## 41        NA   perennial      &lt;NA&gt;
+## 42        NA   perennial      &lt;NA&gt;
+## 43        NA   perennial      &lt;NA&gt;
+## 44        NA   perennial      &lt;NA&gt;
+## 46        NA   perennial      &lt;NA&gt;
+## 48        NA   perennial      &lt;NA&gt;
+## 49        NA   perennial      &lt;NA&gt;
+## 50        NA   perennial      &lt;NA&gt;
+## 51        NA   perennial      &lt;NA&gt;
+## 52        NA   perennial      &lt;NA&gt;
+## 53        NA   perennial      &lt;NA&gt;
+## 54        NA   perennial      &lt;NA&gt;
+## 56        NA   perennial      &lt;NA&gt;
+## 57        NA   perennial      &lt;NA&gt;
+## 58        NA   perennial      &lt;NA&gt;
+## 59        NA   perennial      &lt;NA&gt;
+## 60        NA   perennial      &lt;NA&gt;
+## 61        NA   perennial      &lt;NA&gt;
+## 62        NA   perennial      &lt;NA&gt;
+## 63        NA   perennial      &lt;NA&gt;
+## 66        NA   perennial  nonwoody
+## 68        NA   perennial      &lt;NA&gt;
+## 69        NA   perennial     woody
+## 70        NA   perennial     woody
+## 71        NA   perennial      &lt;NA&gt;
+## 73        NA   perennial      &lt;NA&gt;
+## 75        NA   perennial      &lt;NA&gt;
+## 76        NA   perennial  nonwoody
+## 77        NA   perennial      &lt;NA&gt;
+## 78        NA   perennial      &lt;NA&gt;
+## 79        NA   perennial      &lt;NA&gt;
+## 81        NA   perennial      &lt;NA&gt;
+## 82        NA   perennial      &lt;NA&gt;
+## 83        NA   perennial      &lt;NA&gt;
+## 85        NA   perennial      &lt;NA&gt;
+## 87        NA   perennial      &lt;NA&gt;
+## 88        NA   perennial      &lt;NA&gt;
+## 89        NA   perennial     woody
+</code></pre>
+
+<p>Some more examples (inclduing the use of and/or statements):</p>
+
+<pre><code class="r">trait2 = traits[traits$germination &gt;= 0.2, ]
+traits[traits$germination &gt;= 0.2 &amp; traits$status == &quot;introduced&quot;, ]
+</code></pre>
+
+<pre><code>##      X     status               species germination earlysurvival
+## 8   31 introduced Microstegium vimineum      0.2644        0.8361
+## 13  46 introduced   Picris hieracioides      0.3625        0.9542
+## 14  49 introduced     Verbascum thapsus      0.2164        0.9529
+## 19  64 introduced     Ardisia elliptica      0.2003        0.9948
+## 20  72 introduced       Syzygium jambos      0.6100        0.9932
+## 55 214 introduced    Cynara cardunculus      0.4651        0.9862
+## 72 262 introduced          Mimosa pigra      0.2900        0.9537
+## 84 311 introduced           Rosa rugosa      0.3293        0.9751
+## 90 341 introduced Vincetoxicum rossicum      0.3797        0.9973
+##    adulthood lifehistory life_form
+## 8         NA      annual  nonwoody
+## 13        NA    biennial      &lt;NA&gt;
+## 14        NA    biennial      &lt;NA&gt;
+## 19    0.1079   perennial      &lt;NA&gt;
+## 20    0.5859   perennial      &lt;NA&gt;
+## 55        NA   perennial  nonwoody
+## 72        NA   perennial     woody
+## 84        NA   perennial      &lt;NA&gt;
+## 90        NA   perennial     woody
+</code></pre>
+
+<pre><code class="r">traits[traits$germination &gt;= 0.3 | traits$earlysurvival &lt;= 0.9, ]
+</code></pre>
+
+<pre><code>##      X     status                    species germination earlysurvival
+## 2    5     native            Collinsia verna     0.31550        0.9705
+## 5   15 introduced Chrysanthemum leucanthemum     0.06140        0.8466
+## 6   21 introduced           Centaurea stoebe     0.06150        0.6501
+## 8   31 introduced      Microstegium vimineum     0.26444        0.8361
+## 13  46 introduced        Picris hieracioides     0.36248        0.9542
+## 20  72 introduced            Syzygium jambos     0.61000        0.9932
+## 22  76     native       Achillea millefolium     0.01600        0.0000
+## 24  82     native           Ranunculus acris     0.57700        0.8104
+## 30 100     native       Cecropia obtusifolia     0.28571        0.0000
+## 31 107     native           Avicennia marina     0.52000        0.9927
+## 33 114     native    Liquidambar styraciflua     0.31470        0.9504
+## 41 152     native         Tsuga heterophylla     0.12709        0.8351
+## 42 155     native      Pseudotsuga menziesii     0.36738        0.9298
+## 43 158     native           Pinus sylvestris     0.50533        0.8147
+## 44 162     native              Picea mariana     0.24300        0.8844
+## 49 197     native          Carpinus japonica     0.08540        0.8701
+## 51 199     native       Carpinus tschonoskii     0.10730        0.8700
+## 53 205     native         Cirsium scopulorum     0.00600        0.4847
+## 54 207     native           Cordia alliodora     0.50750        0.8579
+## 55 214 introduced         Cynara cardunculus     0.46510        0.9862
+## 57 218     native      Desmodium paniculatum     0.56650        0.9767
+## 59 224     native         Erianthemum dregei     0.25000        0.4555
+## 61 230     native             Ficus stupenda     0.23900        0.8880
+## 63 236     native          Hakea polyanthema     0.60435        0.9939
+## 66 250     native  Lithospermum caroliniense     0.13490        0.6076
+## 67 252 introduced           Lonicera maackii     0.03333        0.8257
+## 73 265     native         Ochroma pyramidale     0.18667        0.8587
+## 78 278     native            Pinus banksiana     0.43625        0.9410
+## 80 284 introduced              Poa compressa     0.02740        0.0000
+## 81 306     native        Ranunculus bulbosus     0.44500        0.5554
+## 82 307     native          Ranunculus repens     0.10780        0.8353
+## 84 311 introduced                Rosa rugosa     0.32932        0.9751
+## 88 320     native          Shorea stenoptera     0.24990        0.8256
+## 89 330     native      Tachigalia versicolor     0.22425        0.8896
+## 90 341 introduced      Vincetoxicum rossicum     0.37970        0.9973
+##    adulthood lifehistory life_form
+## 2     0.1008      annual      &lt;NA&gt;
+## 5         NA      annual      &lt;NA&gt;
+## 6         NA      annual      &lt;NA&gt;
+## 8         NA      annual  nonwoody
+## 13        NA    biennial      &lt;NA&gt;
+## 20    0.5859   perennial      &lt;NA&gt;
+## 22        NA   perennial      &lt;NA&gt;
+## 24        NA   perennial  nonwoody
+## 30        NA   perennial      &lt;NA&gt;
+## 31        NA   perennial      &lt;NA&gt;
+## 33        NA   perennial      &lt;NA&gt;
+## 41        NA   perennial      &lt;NA&gt;
+## 42        NA   perennial      &lt;NA&gt;
+## 43        NA   perennial      &lt;NA&gt;
+## 44        NA   perennial      &lt;NA&gt;
+## 49        NA   perennial      &lt;NA&gt;
+## 51        NA   perennial      &lt;NA&gt;
+## 53        NA   perennial      &lt;NA&gt;
+## 54        NA   perennial      &lt;NA&gt;
+## 55        NA   perennial  nonwoody
+## 57        NA   perennial      &lt;NA&gt;
+## 59        NA   perennial      &lt;NA&gt;
+## 61        NA   perennial      &lt;NA&gt;
+## 63        NA   perennial      &lt;NA&gt;
+## 66        NA   perennial  nonwoody
+## 67        NA   perennial      &lt;NA&gt;
+## 73        NA   perennial      &lt;NA&gt;
+## 78        NA   perennial      &lt;NA&gt;
+## 80        NA   perennial      &lt;NA&gt;
+## 81        NA   perennial      &lt;NA&gt;
+## 82        NA   perennial      &lt;NA&gt;
+## 84        NA   perennial      &lt;NA&gt;
+## 88        NA   perennial      &lt;NA&gt;
+## 89        NA   perennial     woody
+## 90        NA   perennial     woody
+</code></pre>
+
+<p>Or perhaps we want all species that aren&#39;t &#39;introduced&#39;.</p>
+
+<pre><code class="r">traits[traits$status != &quot;introduced&quot;, ]
+</code></pre>
+
+<pre><code>##      X status                     species germination earlysurvival
+## 2    5 native             Collinsia verna   0.3155000        0.9705
+## 3   11 native       Euphrasia officinalis   0.2900000        0.9491
+## 7   29 native       Heterotheca latifolia   0.1836000        0.9526
+## 9   35 native           Veronica arvensis   0.0220000        0.9549
+## 15  53 native        Araucaria hunsteinii   0.0004921        0.9851
+## 16  56 native      Araucaria cunninghamii   0.0195000        0.9444
+## 17  59 native       Astrocaryum mexicanum   0.0360080        0.9354
+## 22  76 native        Achillea millefolium   0.0160000        0.0000
+## 23  78 native       Arrhenatherum elatius   0.0330000        0.9562
+## 24  82 native            Ranunculus acris   0.5770000        0.8104
+## 25  86 native         Centaurea corymbosa   0.2470000        0.9564
+## 26  89 native        Carpinus caroliniana   0.0171000        0.9758
+## 27  91 native           Banksia attenuata   0.2337512        0.9923
+## 28  93 native            Lupinus arboreus   0.0420000        0.9441
+## 29  99 native        Anthyllis vulneraria   0.1750000        0.9458
+## 30 100 native        Cecropia obtusifolia   0.2857143        0.0000
+## 31 107 native            Avicennia marina   0.5200000        0.9927
+## 32 108 native          Banksia ericifolia   0.1902551        0.9553
+## 33 114 native     Liquidambar styraciflua   0.3147000        0.9504
+## 34 115 native          Banksia hookeriana   0.2060580        0.9819
+## 35 117 native        Petrophile pulchella   0.0916769        0.9758
+## 36 123 native             Ulmus davidiana   0.0212660        0.9565
+## 37 135 native             Prunus serotina   0.2031000        0.9824
+## 38 138 native                 Acer rubrum   0.2750000        0.9580
+## 39 143 native             Nyssa sylvatica   0.0154000        0.9726
+## 40 149 native               Festuca rubra   0.0213500        0.9728
+## 41 152 native          Tsuga heterophylla   0.1270935        0.8351
+## 42 155 native       Pseudotsuga menziesii   0.3673823        0.9298
+## 43 158 native            Pinus sylvestris   0.5053333        0.8147
+## 44 162 native               Picea mariana   0.2430000        0.8844
+## 46 189 native          Berchemia scandens   0.1605000        0.9978
+## 48 196 native            Carpinus cordata   0.0553000        0.9099
+## 49 197 native           Carpinus japonica   0.0854000        0.8701
+## 50 198 native          Carpinus laxiflora   0.1115000        0.9054
+## 51 199 native        Carpinus tschonoskii   0.1073000        0.8700
+## 52 200 native             Centaurea nigra   0.0285000        0.9527
+## 53 205 native          Cirsium scopulorum   0.0060000        0.4847
+## 54 207 native            Cordia alliodora   0.5075000        0.8579
+## 56 215 native           Danthonia spicata   0.0210000        0.9561
+## 57 218 native       Desmodium paniculatum   0.5665000        0.9767
+## 58 222 native Elaeocarpus photiniaefolius   0.0050000        0.9031
+## 59 224 native          Erianthemum dregei   0.2500000        0.4555
+## 60 229 native        Faramea occidentalis   0.2630000        0.9737
+## 61 230 native              Ficus stupenda   0.2390000        0.8880
+## 62 231 native            Frasera speciosa   0.1012500        0.9101
+## 63 236 native           Hakea polyanthema   0.6043484        0.9939
+## 66 250 native   Lithospermum caroliniense   0.1349000        0.6076
+## 68 253 native             Lueha seemannii   0.1000000        0.9385
+## 69 259 native             Miconia affinis   0.0966667        0.9424
+## 70 260 native            Miconia gracilis   0.1830000        0.9313
+## 71 261 native             Miconia nervosa   0.1200000        0.9587
+## 73 265 native          Ochroma pyramidale   0.1866667        0.8587
+## 75 271 native               Olea europaea   0.2699000        0.9555
+## 76 272 native           Oxalis acetosella   0.0870000        0.9944
+## 77 276 native         Phillyrea latifolia   0.2667300        0.9225
+## 78 278 native             Pinus banksiana   0.4362500        0.9410
+## 79 280 native            Pinus monophylla   0.0549000        0.9268
+## 81 306 native         Ranunculus bulbosus   0.4450000        0.5554
+## 82 307 native           Ranunculus repens   0.1078000        0.8353
+## 83 309 native               Rhus radicans   0.0470000        0.9946
+## 85 313 native               Rumex acetosa   0.0418500        0.9702
+## 87 315 native               Salvia lyrata   0.2000000        0.9842
+## 88 320 native           Shorea stenoptera   0.2499000        0.8256
+## 89 330 native       Tachigalia versicolor   0.2242500        0.8896
+##    adulthood lifehistory life_form
+## 2  0.1008000      annual      &lt;NA&gt;
+## 3  0.2720896      annual      &lt;NA&gt;
+## 7         NA      annual  nonwoody
+## 9         NA      annual  nonwoody
+## 15 0.0009753   perennial      &lt;NA&gt;
+## 16 0.0164978   perennial      &lt;NA&gt;
+## 17 0.0554448   perennial     woody
+## 22        NA   perennial      &lt;NA&gt;
+## 23        NA   perennial      &lt;NA&gt;
+## 24        NA   perennial  nonwoody
+## 25        NA   perennial      &lt;NA&gt;
+## 26        NA   perennial      &lt;NA&gt;
+## 27        NA   perennial      &lt;NA&gt;
+## 28        NA   perennial      &lt;NA&gt;
+## 29        NA   perennial      &lt;NA&gt;
+## 30        NA   perennial      &lt;NA&gt;
+## 31        NA   perennial      &lt;NA&gt;
+## 32        NA   perennial     woody
+## 33        NA   perennial      &lt;NA&gt;
+## 34        NA   perennial      &lt;NA&gt;
+## 35        NA   perennial      &lt;NA&gt;
+## 36        NA   perennial      &lt;NA&gt;
+## 37        NA   perennial     woody
+## 38        NA   perennial      &lt;NA&gt;
+## 39        NA   perennial      &lt;NA&gt;
+## 40        NA   perennial      &lt;NA&gt;
+## 41        NA   perennial      &lt;NA&gt;
+## 42        NA   perennial      &lt;NA&gt;
+## 43        NA   perennial      &lt;NA&gt;
+## 44        NA   perennial      &lt;NA&gt;
+## 46        NA   perennial      &lt;NA&gt;
+## 48        NA   perennial      &lt;NA&gt;
+## 49        NA   perennial      &lt;NA&gt;
+## 50        NA   perennial      &lt;NA&gt;
+## 51        NA   perennial      &lt;NA&gt;
+## 52        NA   perennial      &lt;NA&gt;
+## 53        NA   perennial      &lt;NA&gt;
+## 54        NA   perennial      &lt;NA&gt;
+## 56        NA   perennial      &lt;NA&gt;
+## 57        NA   perennial      &lt;NA&gt;
+## 58        NA   perennial      &lt;NA&gt;
+## 59        NA   perennial      &lt;NA&gt;
+## 60        NA   perennial      &lt;NA&gt;
+## 61        NA   perennial      &lt;NA&gt;
+## 62        NA   perennial      &lt;NA&gt;
+## 63        NA   perennial      &lt;NA&gt;
+## 66        NA   perennial  nonwoody
+## 68        NA   perennial      &lt;NA&gt;
+## 69        NA   perennial     woody
+## 70        NA   perennial     woody
+## 71        NA   perennial      &lt;NA&gt;
+## 73        NA   perennial      &lt;NA&gt;
+## 75        NA   perennial      &lt;NA&gt;
+## 76        NA   perennial  nonwoody
+## 77        NA   perennial      &lt;NA&gt;
+## 78        NA   perennial      &lt;NA&gt;
+## 79        NA   perennial      &lt;NA&gt;
+## 81        NA   perennial      &lt;NA&gt;
+## 82        NA   perennial      &lt;NA&gt;
+## 83        NA   perennial      &lt;NA&gt;
+## 85        NA   perennial      &lt;NA&gt;
+## 87        NA   perennial      &lt;NA&gt;
+## 88        NA   perennial      &lt;NA&gt;
+## 89        NA   perennial     woody
+</code></pre>
+
+<p>Or perhaps we&#39;re really interested in introduced species with a poor germination fraction but a high rate of early survival&hellip;</p>
+
+<pre><code class="r">traits[traits$status == &quot;introduced&quot; &amp; traits$germination &lt;= 0.1 &amp; traits$earlysurvival &gt;= 
+    0.95, ]
+</code></pre>
+
+<pre><code>##      X     status               species germination earlysurvival
+## 18  60 introduced     Cytisus scoparius     0.00105        0.9678
+## 65 244 introduced       Larix kaempferi     0.05800        0.9871
+## 74 269 introduced Oenothera glazioviana     0.02050        0.9786
+##    adulthood lifehistory life_form
+## 18    0.2365   perennial     woody
+## 65        NA   perennial      &lt;NA&gt;
+## 74        NA   perennial      &lt;NA&gt;
+</code></pre>
+
+<p>There are also times where we might want to remove all observations/sites/records without data for a particular variable, and we do this using the &#39;is.na()&#39; function.</p>
+
+<p>The &#39;lifehistory&#39; variable has a substantial number of missing datapoints.</p>
+
+<pre><code class="r">is.na(traits$adulthood)
+</code></pre>
+
+<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+## [12]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [34]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [45]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [56]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [67]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [78]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [89]  TRUE  TRUE
+</code></pre>
+
+<p>To remove all the observations with missing data for seedbank we use:</p>
+
+<pre><code class="r">traits[!is.na(traits$adulthood), ]
+</code></pre>
+
+<pre><code>##     X     status                species germination earlysurvival
+## 1   1 introduced         Carduus nutans   0.1100000        0.9097
+## 2   5     native        Collinsia verna   0.3155000        0.9705
+## 3  11     native  Euphrasia officinalis   0.2900000        0.9491
+## 4  13 introduced Centaurea solstitialis   0.0525915        0.9181
+## 10 37 introduced     Alliaria petiolata   0.0327655        0.9490
+## 11 40 introduced     Centaurea maculosa   0.1700000        0.9760
+## 15 53     native   Araucaria hunsteinii   0.0004921        0.9851
+## 16 56     native Araucaria cunninghamii   0.0195000        0.9444
+## 17 59     native  Astrocaryum mexicanum   0.0360080        0.9354
+## 18 60 introduced      Cytisus scoparius   0.0010500        0.9678
+## 19 64 introduced      Ardisia elliptica   0.2003462        0.9948
+## 20 72 introduced        Syzygium jambos   0.6100000        0.9932
+## 21 73 introduced    Agropyron cristatum   0.1997900        0.9967
+##    adulthood lifehistory life_form
+## 1  0.0003234      annual  nonwoody
+## 2  0.1008000      annual      &lt;NA&gt;
+## 3  0.2720896      annual      &lt;NA&gt;
+## 4  0.3708120      annual      &lt;NA&gt;
+## 10 0.2062129    biennial      &lt;NA&gt;
+## 11 0.4263418    biennial      &lt;NA&gt;
+## 15 0.0009753   perennial      &lt;NA&gt;
+## 16 0.0164978   perennial      &lt;NA&gt;
+## 17 0.0554448   perennial     woody
+## 18 0.2364810   perennial     woody
+## 19 0.1079270   perennial      &lt;NA&gt;
+## 20 0.5859000   perennial      &lt;NA&gt;
+## 21 0.7560000   perennial      &lt;NA&gt;
+</code></pre>
+
+<p>If you&#39;ve got what you want and you want to use it later on, simply save it as a seperate dataframe:</p>
+
+<pre><code class="r">my.df = traits[!is.na(traits$adulthood), ]
+</code></pre>
+
+<p>And if for some ungodly reason you want to send the data subset to a programme other than R (?!):</p>
+
+<pre><code class="r">write.csv(my.df, file = &quot;datasubset.csv&quot;)
+</code></pre>
+
+<p>Lastly, another way you can subset data is using the subset() function, e.g.</p>
+
+<pre><code class="r">subset(traits, lifehistory == &quot;biennial&quot;)
+</code></pre>
+
+<pre><code>##     X     status             species germination earlysurvival adulthood
+## 10 37 introduced  Alliaria petiolata     0.03277        0.9490    0.2062
+## 11 40 introduced  Centaurea maculosa     0.17000        0.9760    0.4263
+## 12 44 introduced      Echium vulgare     0.17285        0.9388        NA
+## 13 46 introduced Picris hieracioides     0.36248        0.9542        NA
+## 14 49 introduced   Verbascum thapsus     0.21637        0.9529        NA
+##    lifehistory life_form
+## 10    biennial      &lt;NA&gt;
+## 11    biennial      &lt;NA&gt;
+## 12    biennial      &lt;NA&gt;
+## 13    biennial      &lt;NA&gt;
+## 14    biennial      &lt;NA&gt;
+</code></pre>
+
+<p>However, in practise I find the use of bracket notation much more flexible and intuitive, particularly when making complex selections in loops etc&hellip;and allegedly the subset function can lead to unexpected problems <a href="http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset">http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset</a></p>
+
+<p>&hellip;finally what was the whole point of doing this in R markdown?</p>
+
+<p>Well now we can &#39;knit&#39; this tutorial and the accompanying code results together using the knitr package. If you don&#39;t have the knitr package already you&#39;ll need to install it and load it from library(). </p>
+
+<p>And now all you need to do is click the &#39;Knit HTML&#39; button in the script toolbar and watch the magic happen!</p>
+
+<p><strong>More on subsetting&hellip;</strong></p>
+
+<p>Subsetting in R <a href="http://www.ats.ucla.edu/stat/r/modules/subsetting.htm">http://www.ats.ucla.edu/stat/r/modules/subsetting.htm</a></p>
+
+<p>Quick-R: Subsetting data <a href="http://www.statmethods.net/management/subset.html">http://www.statmethods.net/management/subset.html</a></p>
+
+<p><strong>More on knitr and reproducible reports</strong></p>
+
+<p>knitr <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a></p>
+
+<p>Writing reproducible reports in R with markdown, knitr and pandoc <a href="http://nicercode.github.io/guides/reports/">http://nicercode.github.io/guides/reports/</a></p>
+
+</body>
+
+</html>
+

@@ -1,0 +1,128 @@
+Subsetting in R: a very brief intro...
+========================================================
+
+First things first, this is an R Markdown document.
+
+Markdown is a simple formatting syntax that you can use to do wonderful things e.g. authoring dynamic documents exactly like this one. More on this later, but for now all that really matters is that all the instructions for this tutorial are provided in plain text while the actual executable R-code is given in the greyed-out code blocks. Please note that for now you can ignore the first and last lines of each code block (backward ticks, curly backwards etc. is not executable R-code).
+
+First thing we're going to do is load in some data. If you haven't already, click on 'Session' in the Rstudio toolbar and set working directory "To Source File Location" (assuming you've saved this document and the data in the same place).
+
+Now run the single line of code below (ctrl+enter). 
+
+```{r}
+traits <- read.csv("haba_traits.csv", header = TRUE, na.strings = "")
+```
+
+Getting to know your data better and betterer...
+
+```{r}
+str(traits)
+colnames(traits)
+dim(traits)
+summary(traits)
+head(traits)
+hist(as.numeric(traits$germination))
+```
+
+As you can see 'traits' is a dataframe comprising individual trait data for 90 plant species.
+
+To access individual variables (columns) in R the most flexible approach is to use bracket notation where the first index is for rows and the second for columns i.e. [R,C]. If we want to access all the observations (rows) in one column we leave the first index blank.
+
+```{r}
+traits[,2]
+traits$germination
+```
+
+Or vice versa, if we want to access all the observations in one row we leave the second index blank.
+
+```{r}
+traits[7,]
+```
+
+How about if we wanted to subset different observations from different variables? The code block below generates a number of different subsets. Before running each line of code, try workout what each one is doing...
+
+```{r fig.width=7, fig.height=6}
+traits[1:6,]
+traits[12,3]
+traits[,c(2,4)]
+```
+
+That's all very simple, but what now if want to subset the dataset based on specific criteria, e.g. only select species that are introduced? We still use the bracket notation but with the added help of logical expressions. 
+
+```{r}
+unique(traits$status)
+traits[traits$status == "native",]
+```
+
+Some more examples (inclduing the use of and/or statements):
+
+```{r}
+trait2 = traits[traits$germination >= 0.2,]
+traits[traits$germination >= 0.2 & traits$status == "introduced",]
+traits[traits$germination >= 0.3 | traits$earlysurvival <= 0.9,]
+```
+
+Or perhaps we want all species that aren't 'introduced'.
+
+```{r}
+traits[traits$status != "introduced",]
+```
+
+
+Or perhaps we're really interested in introduced species with a poor germination fraction but a high rate of early survival...
+
+```{r}
+traits[traits$status == "introduced" & traits$germination <= 0.1 & traits$earlysurvival >= 0.95,]
+```
+
+There are also times where we might want to remove all observations/sites/records without data for a particular variable, and we do this using the 'is.na()' function.
+
+The 'lifehistory' variable has a substantial number of missing datapoints.
+
+```{r}
+is.na(traits$adulthood)
+```
+
+To remove all the observations with missing data for seedbank we use:
+
+```{r}
+traits[!is.na(traits$adulthood),]
+```
+
+If you've got what you want and you want to use it later on, simply save it as a seperate dataframe:
+
+```{r}
+my.df = traits[!is.na(traits$adulthood),]
+```
+
+And if for some ungodly reason you want to send the data subset to a programme other than R (?!):
+
+```{r, eval = FALSE}
+write.csv(my.df, file="datasubset.csv")
+```
+
+Lastly, another way you can subset data is using the subset() function, e.g.
+
+```{r}
+subset(traits, lifehistory == "biennial")
+```
+
+However, in practise I find the use of bracket notation much more flexible and intuitive, particularly when making complex selections in loops etc...and allegedly the subset function can lead to unexpected problems http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset
+
+...finally what was the whole point of doing this in R markdown?
+
+Well now we can 'knit' this tutorial and the accompanying code results together using the knitr package. If you don't have the knitr package already you'll need to install it and load it from library(). 
+
+And now all you need to do is click the 'Knit HTML' button in the script toolbar and watch the magic happen!
+
+**More on subsetting...**
+
+Subsetting in R http://www.ats.ucla.edu/stat/r/modules/subsetting.htm
+
+Quick-R: Subsetting data http://www.statmethods.net/management/subset.html
+
+**More on knitr and reproducible reports**
+
+knitr http://yihui.name/knitr/
+
+Writing reproducible reports in R with markdown, knitr and pandoc http://nicercode.github.io/guides/reports/
