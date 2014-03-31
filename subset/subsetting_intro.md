@@ -782,23 +782,7 @@ traits[!is.na(traits$adulthood), ]
 ```
 
 
-If you've got what you want and you want to use it later on, simply save it as a seperate dataframe:
-
-
-```r
-my.df = traits[!is.na(traits$adulthood), ]
-```
-
-
-And if for some ungodly reason you want to send the data subset to a programme other than R (?!):
-
-
-```r
-write.csv(my.df, file = "datasubset.csv")
-```
-
-
-Lastly, another way you can subset data is using the subset() function, e.g.
+Alternatively, another way you can subset data is using the subset() function, e.g.
 
 
 ```r
@@ -822,6 +806,369 @@ subset(traits, lifehistory == "biennial")
 
 
 However, in practise I find the use of bracket notation much more flexible and intuitive, particularly when making complex selections in loops etc...and allegedly the subset function can lead to unexpected problems http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset
+
+If you've got what you want and you want to use it later on, simply save it as a seperate dataframe:
+
+
+```r
+my.df = traits[!is.na(traits$adulthood), ]
+```
+
+
+What if we'd like to save a collection of information (dataframe or otherwise) that have different structure? We use a list:
+
+
+```r
+traits.list = list("Some information about 'traits'")
+traits.list[["native"]] = traits[traits$status == "native", ]
+traits.list[["introduced"]] = traits[traits$status == "introduced", ]
+print(traits.list)
+```
+
+```
+## [[1]]
+## [1] "Some information about 'traits'"
+## 
+## $native
+##      X status                     species germination earlysurvival
+## 2    5 native             Collinsia verna   0.3155000        0.9705
+## 3   11 native       Euphrasia officinalis   0.2900000        0.9491
+## 7   29 native       Heterotheca latifolia   0.1836000        0.9526
+## 9   35 native           Veronica arvensis   0.0220000        0.9549
+## 15  53 native        Araucaria hunsteinii   0.0004921        0.9851
+## 16  56 native      Araucaria cunninghamii   0.0195000        0.9444
+## 17  59 native       Astrocaryum mexicanum   0.0360080        0.9354
+## 22  76 native        Achillea millefolium   0.0160000        0.0000
+## 23  78 native       Arrhenatherum elatius   0.0330000        0.9562
+## 24  82 native            Ranunculus acris   0.5770000        0.8104
+## 25  86 native         Centaurea corymbosa   0.2470000        0.9564
+## 26  89 native        Carpinus caroliniana   0.0171000        0.9758
+## 27  91 native           Banksia attenuata   0.2337512        0.9923
+## 28  93 native            Lupinus arboreus   0.0420000        0.9441
+## 29  99 native        Anthyllis vulneraria   0.1750000        0.9458
+## 30 100 native        Cecropia obtusifolia   0.2857143        0.0000
+## 31 107 native            Avicennia marina   0.5200000        0.9927
+## 32 108 native          Banksia ericifolia   0.1902551        0.9553
+## 33 114 native     Liquidambar styraciflua   0.3147000        0.9504
+## 34 115 native          Banksia hookeriana   0.2060580        0.9819
+## 35 117 native        Petrophile pulchella   0.0916769        0.9758
+## 36 123 native             Ulmus davidiana   0.0212660        0.9565
+## 37 135 native             Prunus serotina   0.2031000        0.9824
+## 38 138 native                 Acer rubrum   0.2750000        0.9580
+## 39 143 native             Nyssa sylvatica   0.0154000        0.9726
+## 40 149 native               Festuca rubra   0.0213500        0.9728
+## 41 152 native          Tsuga heterophylla   0.1270935        0.8351
+## 42 155 native       Pseudotsuga menziesii   0.3673823        0.9298
+## 43 158 native            Pinus sylvestris   0.5053333        0.8147
+## 44 162 native               Picea mariana   0.2430000        0.8844
+## 46 189 native          Berchemia scandens   0.1605000        0.9978
+## 48 196 native            Carpinus cordata   0.0553000        0.9099
+## 49 197 native           Carpinus japonica   0.0854000        0.8701
+## 50 198 native          Carpinus laxiflora   0.1115000        0.9054
+## 51 199 native        Carpinus tschonoskii   0.1073000        0.8700
+## 52 200 native             Centaurea nigra   0.0285000        0.9527
+## 53 205 native          Cirsium scopulorum   0.0060000        0.4847
+## 54 207 native            Cordia alliodora   0.5075000        0.8579
+## 56 215 native           Danthonia spicata   0.0210000        0.9561
+## 57 218 native       Desmodium paniculatum   0.5665000        0.9767
+## 58 222 native Elaeocarpus photiniaefolius   0.0050000        0.9031
+## 59 224 native          Erianthemum dregei   0.2500000        0.4555
+## 60 229 native        Faramea occidentalis   0.2630000        0.9737
+## 61 230 native              Ficus stupenda   0.2390000        0.8880
+## 62 231 native            Frasera speciosa   0.1012500        0.9101
+## 63 236 native           Hakea polyanthema   0.6043484        0.9939
+## 66 250 native   Lithospermum caroliniense   0.1349000        0.6076
+## 68 253 native             Lueha seemannii   0.1000000        0.9385
+## 69 259 native             Miconia affinis   0.0966667        0.9424
+## 70 260 native            Miconia gracilis   0.1830000        0.9313
+## 71 261 native             Miconia nervosa   0.1200000        0.9587
+## 73 265 native          Ochroma pyramidale   0.1866667        0.8587
+## 75 271 native               Olea europaea   0.2699000        0.9555
+## 76 272 native           Oxalis acetosella   0.0870000        0.9944
+## 77 276 native         Phillyrea latifolia   0.2667300        0.9225
+## 78 278 native             Pinus banksiana   0.4362500        0.9410
+## 79 280 native            Pinus monophylla   0.0549000        0.9268
+## 81 306 native         Ranunculus bulbosus   0.4450000        0.5554
+## 82 307 native           Ranunculus repens   0.1078000        0.8353
+## 83 309 native               Rhus radicans   0.0470000        0.9946
+## 85 313 native               Rumex acetosa   0.0418500        0.9702
+## 87 315 native               Salvia lyrata   0.2000000        0.9842
+## 88 320 native           Shorea stenoptera   0.2499000        0.8256
+## 89 330 native       Tachigalia versicolor   0.2242500        0.8896
+##    adulthood lifehistory life_form
+## 2  0.1008000      annual      <NA>
+## 3  0.2720896      annual      <NA>
+## 7         NA      annual  nonwoody
+## 9         NA      annual  nonwoody
+## 15 0.0009753   perennial      <NA>
+## 16 0.0164978   perennial      <NA>
+## 17 0.0554448   perennial     woody
+## 22        NA   perennial      <NA>
+## 23        NA   perennial      <NA>
+## 24        NA   perennial  nonwoody
+## 25        NA   perennial      <NA>
+## 26        NA   perennial      <NA>
+## 27        NA   perennial      <NA>
+## 28        NA   perennial      <NA>
+## 29        NA   perennial      <NA>
+## 30        NA   perennial      <NA>
+## 31        NA   perennial      <NA>
+## 32        NA   perennial     woody
+## 33        NA   perennial      <NA>
+## 34        NA   perennial      <NA>
+## 35        NA   perennial      <NA>
+## 36        NA   perennial      <NA>
+## 37        NA   perennial     woody
+## 38        NA   perennial      <NA>
+## 39        NA   perennial      <NA>
+## 40        NA   perennial      <NA>
+## 41        NA   perennial      <NA>
+## 42        NA   perennial      <NA>
+## 43        NA   perennial      <NA>
+## 44        NA   perennial      <NA>
+## 46        NA   perennial      <NA>
+## 48        NA   perennial      <NA>
+## 49        NA   perennial      <NA>
+## 50        NA   perennial      <NA>
+## 51        NA   perennial      <NA>
+## 52        NA   perennial      <NA>
+## 53        NA   perennial      <NA>
+## 54        NA   perennial      <NA>
+## 56        NA   perennial      <NA>
+## 57        NA   perennial      <NA>
+## 58        NA   perennial      <NA>
+## 59        NA   perennial      <NA>
+## 60        NA   perennial      <NA>
+## 61        NA   perennial      <NA>
+## 62        NA   perennial      <NA>
+## 63        NA   perennial      <NA>
+## 66        NA   perennial  nonwoody
+## 68        NA   perennial      <NA>
+## 69        NA   perennial     woody
+## 70        NA   perennial     woody
+## 71        NA   perennial      <NA>
+## 73        NA   perennial      <NA>
+## 75        NA   perennial      <NA>
+## 76        NA   perennial  nonwoody
+## 77        NA   perennial      <NA>
+## 78        NA   perennial      <NA>
+## 79        NA   perennial      <NA>
+## 81        NA   perennial      <NA>
+## 82        NA   perennial      <NA>
+## 83        NA   perennial      <NA>
+## 85        NA   perennial      <NA>
+## 87        NA   perennial      <NA>
+## 88        NA   perennial      <NA>
+## 89        NA   perennial     woody
+## 
+## $introduced
+##      X     status                    species germination earlysurvival
+## 1    1 introduced             Carduus nutans     0.11000        0.9097
+## 4   13 introduced     Centaurea solstitialis     0.05259        0.9181
+## 5   15 introduced Chrysanthemum leucanthemum     0.06140        0.8466
+## 6   21 introduced           Centaurea stoebe     0.06150        0.6501
+## 8   31 introduced      Microstegium vimineum     0.26444        0.8361
+## 10  37 introduced         Alliaria petiolata     0.03277        0.9490
+## 11  40 introduced         Centaurea maculosa     0.17000        0.9760
+## 12  44 introduced             Echium vulgare     0.17285        0.9388
+## 13  46 introduced        Picris hieracioides     0.36248        0.9542
+## 14  49 introduced          Verbascum thapsus     0.21637        0.9529
+## 18  60 introduced          Cytisus scoparius     0.00105        0.9678
+## 19  64 introduced          Ardisia elliptica     0.20035        0.9948
+## 20  72 introduced            Syzygium jambos     0.61000        0.9932
+## 21  73 introduced        Agropyron cristatum     0.19979        0.9967
+## 45 174 introduced         Andropogon gayanus     0.19592        0.9019
+## 47 191 introduced         Bischofia javanica     0.16650        0.9986
+## 55 214 introduced         Cynara cardunculus     0.46510        0.9862
+## 64 239 introduced    Hieracium piloselloides     0.00650        0.9486
+## 65 244 introduced            Larix kaempferi     0.05800        0.9871
+## 67 252 introduced           Lonicera maackii     0.03333        0.8257
+## 72 262 introduced               Mimosa pigra     0.29000        0.9537
+## 74 269 introduced      Oenothera glazioviana     0.02050        0.9786
+## 80 284 introduced              Poa compressa     0.02740        0.0000
+## 84 311 introduced                Rosa rugosa     0.32932        0.9751
+## 86 314 introduced           Rumex acetosella     0.01200        0.9438
+## 90 341 introduced      Vincetoxicum rossicum     0.37970        0.9973
+##    adulthood lifehistory life_form
+## 1  0.0003234      annual  nonwoody
+## 4  0.3708120      annual      <NA>
+## 5         NA      annual      <NA>
+## 6         NA      annual      <NA>
+## 8         NA      annual  nonwoody
+## 10 0.2062129    biennial      <NA>
+## 11 0.4263418    biennial      <NA>
+## 12        NA    biennial      <NA>
+## 13        NA    biennial      <NA>
+## 14        NA    biennial      <NA>
+## 18 0.2364810   perennial     woody
+## 19 0.1079270   perennial      <NA>
+## 20 0.5859000   perennial      <NA>
+## 21 0.7560000   perennial      <NA>
+## 45        NA   perennial      <NA>
+## 47        NA   perennial      <NA>
+## 55        NA   perennial  nonwoody
+## 64        NA   perennial      <NA>
+## 65        NA   perennial      <NA>
+## 67        NA   perennial      <NA>
+## 72        NA   perennial     woody
+## 74        NA   perennial      <NA>
+## 80        NA   perennial      <NA>
+## 84        NA   perennial      <NA>
+## 86        NA   perennial      <NA>
+## 90        NA   perennial     woody
+```
+
+
+A list allows you to make an ordered collection of objects (vectors, dataframes, matrices etc.) that have different data types, structure and length. Recall the different data types:
+
+Vector - 1D ordered sequence of either numbers, characters or logical
+
+```r
+numeric = c(1, 2, 3)
+character = c("one", "two", "three")
+logical <- c(TRUE, TRUE, FALSE)
+```
+
+
+```
+## [1] 1 2 3
+```
+
+```
+## [1] "one"   "two"   "three"
+```
+
+```
+## [1]  TRUE  TRUE FALSE
+```
+
+Matrix - 2D ordered sequence where all columns must have the same length and mode (i.e. numbers, characters or logical)
+
+```r
+number.matrix = matrix(1:20, nrow = 5, ncol = 4)
+character.matrix = matrix("strings", nrow = 5, ncol = 4)
+```
+
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    6   11   16
+## [2,]    2    7   12   17
+## [3,]    3    8   13   18
+## [4,]    4    9   14   19
+## [5,]    5   10   15   20
+```
+
+```
+##      [,1]      [,2]      [,3]      [,4]     
+## [1,] "strings" "strings" "strings" "strings"
+## [2,] "strings" "strings" "strings" "strings"
+## [3,] "strings" "strings" "strings" "strings"
+## [4,] "strings" "strings" "strings" "strings"
+## [5,] "strings" "strings" "strings" "strings"
+```
+
+Factor - original data values are stored as an internal (invisible) character vector; the factor object is in fact a vector of integers in the range [1... n], where n is the number of unique values, which are mapped to the character vector. Factors are cool (particularly for plotting), but only use them when you actually need to:
+
+```r
+str(character)
+```
+
+```
+##  chr [1:3] "one" "two" "three"
+```
+
+```r
+str(as.factor(character))
+```
+
+```
+##  Factor w/ 3 levels "one","three",..: 1 3 2
+```
+
+You should consider importing data as strings instead of the default, which is factor:
+
+```r
+str(traits$species)
+```
+
+```
+##  Factor w/ 90 levels "Acer rubrum",..: 18 32 41 28 30 29 47 58 89 4 ...
+```
+
+```r
+traits <- read.csv("haba_traits.csv", header = TRUE, na.strings = "", stringsAsFactors = FALSE)
+str(traits$species)
+```
+
+```
+##  chr [1:90] "Carduus nutans" "Collinsia verna" ...
+```
+
+Dataframe - 2D ordered sequence where all columns must have the same length, but may have different mode (Dataframes are actually special types of lists!)
+
+```r
+dataframe = data.frame(number.matrix, character.matrix)
+print(dataframe)
+```
+
+```
+##   X1 X2 X3 X4    X1.1    X2.1    X3.1    X4.1
+## 1  1  6 11 16 strings strings strings strings
+## 2  2  7 12 17 strings strings strings strings
+## 3  3  8 13 18 strings strings strings strings
+## 4  4  9 14 19 strings strings strings strings
+## 5  5 10 15 20 strings strings strings strings
+```
+
+
+Remembering our looping skillz, lets add some more information to our list: 
+
+```r
+for (i in unique(traits$lifehistory)) {
+    traits.list[[i]] = summary(traits[traits$lifehistory == i, 4:5])
+}
+print(traits.list[c(unique(traits$lifehistory))])
+```
+
+```
+## $annual
+##   germination     earlysurvival  
+##  Min.   :0.0220   Min.   :0.650  
+##  1st Qu.:0.0614   1st Qu.:0.847  
+##  Median :0.1100   Median :0.918  
+##  Mean   :0.1512   Mean   :0.887  
+##  3rd Qu.:0.2644   3rd Qu.:0.953  
+##  Max.   :0.3155   Max.   :0.971  
+## 
+## $biennial
+##   germination     earlysurvival  
+##  Min.   :0.0328   Min.   :0.939  
+##  1st Qu.:0.1700   1st Qu.:0.949  
+##  Median :0.1729   Median :0.953  
+##  Mean   :0.1909   Mean   :0.954  
+##  3rd Qu.:0.2164   3rd Qu.:0.954  
+##  Max.   :0.3625   Max.   :0.976  
+## 
+## $perennial
+##   germination     earlysurvival  
+##  Min.   :0.0005   Min.   :0.000  
+##  1st Qu.:0.0404   1st Qu.:0.889  
+##  Median :0.1635   Median :0.950  
+##  Mean   :0.1861   Mean   :0.881  
+##  3rd Qu.:0.2639   3rd Qu.:0.976  
+##  Max.   :0.6100   Max.   :0.999
+```
+
+
+Finally, if for some ungodly reason you want to send the data subset to a programme other than R (?!):
+
+
+```r
+write.csv(my.df, file = "datasubset.csv")
+```
+
+
 
 ...finally what was the whole point of doing this in R markdown?
 

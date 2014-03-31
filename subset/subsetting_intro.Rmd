@@ -89,25 +89,82 @@ To remove all the observations with missing data for seedbank we use:
 traits[!is.na(traits$adulthood),]
 ```
 
-If you've got what you want and you want to use it later on, simply save it as a seperate dataframe:
-
-```{r}
-my.df = traits[!is.na(traits$adulthood),]
-```
-
-And if for some ungodly reason you want to send the data subset to a programme other than R (?!):
-
-```{r, eval = FALSE}
-write.csv(my.df, file="datasubset.csv")
-```
-
-Lastly, another way you can subset data is using the subset() function, e.g.
+Alternatively, another way you can subset data is using the subset() function, e.g.
 
 ```{r}
 subset(traits, lifehistory == "biennial")
 ```
 
 However, in practise I find the use of bracket notation much more flexible and intuitive, particularly when making complex selections in loops etc...and allegedly the subset function can lead to unexpected problems http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset
+
+If you've got what you want and you want to use it later on, simply save it as a seperate dataframe:
+
+```{r}
+my.df = traits[!is.na(traits$adulthood),]
+```
+
+What if we'd like to save a collection of information (dataframe or otherwise) that have different structure? We use a list:
+
+```{r}
+traits.list = list("Some information about 'traits'")
+traits.list[["native"]] = traits[traits$status=="native",]
+traits.list[["introduced"]] = traits[traits$status=="introduced",]
+print(traits.list)
+```
+
+A list allows you to make an ordered collection of objects (vectors, dataframes, matrices etc.) that have different data types, structure and length. Recall the different data types:
+
+Vector - 1D ordered sequence of either numbers, characters or logical
+```{r}
+numeric = c(1,2,3)
+character = c("one","two","three")
+logical <- c(TRUE,TRUE,FALSE)
+```
+```{r echo=FALSE}
+print(numeric)
+print(character)
+print(logical)
+```
+Matrix - 2D ordered sequence where all columns must have the same length and mode (i.e. numbers, characters or logical)
+```{r}
+number.matrix = matrix(1:20, nrow=5, ncol=4)
+character.matrix = matrix("strings", nrow=5, ncol=4)
+```
+```{r echo=FALSE}
+print(number.matrix)
+print(character.matrix)
+```
+Factor - original data values are stored as an internal (invisible) character vector; the factor object is in fact a vector of integers in the range [1... n], where n is the number of unique values, which are mapped to the character vector. Factors are cool (particularly for plotting), but only use them when you actually need to:
+```{r}
+str(character)
+str(as.factor(character))
+```
+You should consider importing data as strings instead of the default, which is factor:
+```{r}
+str(traits$species)
+traits <- read.csv("haba_traits.csv", header = TRUE, na.strings = "", stringsAsFactors=FALSE)
+str(traits$species)
+```
+Dataframe - 2D ordered sequence where all columns must have the same length, but may have different mode (Dataframes are actually special types of lists!)
+```{r}
+dataframe = data.frame(number.matrix, character.matrix)
+print(dataframe)
+```
+
+Remembering our looping skillz, lets add some more information to our list: 
+```{r}
+for (i in unique(traits$lifehistory)) {
+  traits.list[[i]] = summary(traits[traits$lifehistory==i,4:5])
+}
+print(traits.list[c(unique(traits$lifehistory))])
+```
+
+Finally, if for some ungodly reason you want to send the data subset to a programme other than R (?!):
+
+```{r, eval = FALSE}
+write.csv(my.df, file="datasubset.csv")
+```
+
 
 ...finally what was the whole point of doing this in R markdown?
 
