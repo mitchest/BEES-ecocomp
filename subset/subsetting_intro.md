@@ -819,16 +819,13 @@ What if we'd like to save a collection of information (dataframe or otherwise) t
 
 
 ```r
-traits.list = list("Some information about 'traits'")
+traits.list = list()
 traits.list[["native"]] = traits[traits$status == "native", ]
 traits.list[["introduced"]] = traits[traits$status == "introduced", ]
 print(traits.list)
 ```
 
 ```
-## [[1]]
-## [1] "Some information about 'traits'"
-## 
 ## $native
 ##      X status                     species germination earlysurvival
 ## 2    5 native             Collinsia verna   0.3155000        0.9705
@@ -1030,6 +1027,7 @@ logical <- c(TRUE, TRUE, FALSE)
 ```
 
 
+
 ```
 ## [1] 1 2 3
 ```
@@ -1048,6 +1046,7 @@ Matrix - 2D ordered sequence where all columns must have the same length and mod
 number.matrix = matrix(1:20, nrow = 5, ncol = 4)
 character.matrix = matrix("strings", nrow = 5, ncol = 4)
 ```
+
 
 
 ```
@@ -1119,6 +1118,22 @@ print(dataframe)
 ## 3  3  8 13 18 strings strings strings strings
 ## 4  4  9 14 19 strings strings strings strings
 ## 5  5 10 15 20 strings strings strings strings
+```
+
+```r
+str(dataframe)
+```
+
+```
+## 'data.frame':	5 obs. of  8 variables:
+##  $ X1  : int  1 2 3 4 5
+##  $ X2  : int  6 7 8 9 10
+##  $ X3  : int  11 12 13 14 15
+##  $ X4  : int  16 17 18 19 20
+##  $ X1.1: Factor w/ 1 level "strings": 1 1 1 1 1
+##  $ X2.1: Factor w/ 1 level "strings": 1 1 1 1 1
+##  $ X3.1: Factor w/ 1 level "strings": 1 1 1 1 1
+##  $ X4.1: Factor w/ 1 level "strings": 1 1 1 1 1
 ```
 
 

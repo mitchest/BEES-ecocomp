@@ -57,7 +57,7 @@ traits[traits$status == "native",]
 Some more examples (inclduing the use of and/or statements):
 
 ```{r}
-trait2 = traits[traits$germination >= 0.2,]
+traits[traits$germination >= 0.2,]
 traits[traits$germination >= 0.2 & traits$status == "introduced",]
 traits[traits$germination >= 0.3 | traits$earlysurvival <= 0.9,]
 ```
@@ -106,7 +106,7 @@ my.df = traits[!is.na(traits$adulthood),]
 What if we'd like to save a collection of information (dataframe or otherwise) that have different structure? We use a list:
 
 ```{r}
-traits.list = list("Some information about 'traits'")
+traits.list = list()
 traits.list[["native"]] = traits[traits$status=="native",]
 traits.list[["introduced"]] = traits[traits$status=="introduced",]
 print(traits.list)
@@ -120,6 +120,7 @@ numeric = c(1,2,3)
 character = c("one","two","three")
 logical <- c(TRUE,TRUE,FALSE)
 ```
+
 ```{r echo=FALSE}
 print(numeric)
 print(character)
@@ -130,6 +131,7 @@ Matrix - 2D ordered sequence where all columns must have the same length and mod
 number.matrix = matrix(1:20, nrow=5, ncol=4)
 character.matrix = matrix("strings", nrow=5, ncol=4)
 ```
+
 ```{r echo=FALSE}
 print(number.matrix)
 print(character.matrix)
@@ -149,6 +151,8 @@ Dataframe - 2D ordered sequence where all columns must have the same length, but
 ```{r}
 dataframe = data.frame(number.matrix, character.matrix)
 print(dataframe)
+str(dataframe)
+
 ```
 
 Remembering our looping skillz, lets add some more information to our list: 
