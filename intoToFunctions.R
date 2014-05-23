@@ -4,9 +4,12 @@
 
 # R is a "functional" programming language
 # Beacuase it is based around the use of functions!
-# The general concept is to take some input/s and produce a definite output
 
-# We use them when we find or expect to do the same thing many times, sometimes with small variations
+# In a general sense, a function is a block of reusable code that
+# takes some input/s and produces a definite output
+
+# We use them when we find or expect to do the same thing many times, 
+# sometimes with small variations
 # They save both physical and mental effort
 # They allow us to think more holistically about our program
 # They also reduce error, by reducing needless manual input
@@ -18,22 +21,22 @@
 
 # The basic form (called a declaration or definition) of a function:
 MyFunction <- function(argument.1, argument.2, ...) {
-  # some use/analysis/manipulation suing arguments
+  # some use/analysis/manipulation using arguments
   return(what.you.want.as.output)
 }
 
-# When you ? query a function (e.g. ?lm) you get info on the arguments requires/accepted
+# When you ?query a function (e.g. ?lm) you get info on the arguments requires/accepted
 # Arguments can be ordered or named
-# Both are useful, and usually functions have a few ordered arguments and then maybe some more default argument values
-# e.g. lm()
+# Both are useful, and usually functions have a few ordered arguments and
+# then maybe some more default argument values, e.g. lm()
 
 data(beavers)
 
+?lm
 lm(temp ~ time, beaver1)
 lm(formula=temp ~ time, data=beaver1)
 lm(formula=temp ~ time, data=beaver1, method="qr")
 lm(formula=temp ~ time, data=beaver1, method="model.frame")
-
 
 
 # Writing functions -------------------------------------------------------
@@ -62,6 +65,7 @@ MyMean = function(x, column) {
   sum(x[,column])/length(x[,column])
 }
 MyMean(beaver1, "temp")
+MyMean(beaver1, 3)
 
 
 
@@ -105,13 +109,13 @@ MyMean = function(x, column) {
 MyMean(beaver1, "temp")
 
 
-# How does R know what you want if you've done more than one thing?
-# It returns the last evaluated value
-# Sometimes it is clearer or required that we explicitly define what the function returns
-# We do this with:
+# How does R know what you want if you've evaluated more than one thing?
+# It returns the last evaluated value!
+# Although R never REQUIRES it, sometimes it is clearer or easier if we 
+# explicitly define what the function returns, we do this with another function!:
 return()
 
-# For example, there is no difference form the last version if we do:
+# For example, there is no difference from the last version if we do:
 MyMean = function(x, column) {
   # make a variable
   mean.celcius = sum(x[,column])/length(x[,column])
@@ -136,7 +140,6 @@ bar <- function() {
   }
   return(3)
 }
-
 
 
 # Practical examples ------------------------------------------------------
@@ -174,11 +177,17 @@ PrintFit("temp", "time", beaver1, plotResid=TRUE)
 
 ## MORE HOMEWORK ##
 
+# 1.
 # Take the functions MyPlot() and PrintFit() above, and join their powers together
 # to make a side-by-side panel plot of both the data and residuals, and if you're 
 # feeling adventurous, make the fit stats print onto the plot instead of in ther terminal!
 
+# 2.
+# Try combining your function and looping skills together!
+#     e.g. Write a function that opens a .csv and does something cimpel with it,
+#     then write a loop (or use l/s/apply()!) to call it on many .csv files
 
+# 3.
 # Things to read about:
 # Scoping, and the difference between the global environment and a functions environment
 # use of the "..." argument
