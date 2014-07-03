@@ -20,13 +20,13 @@ https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
 https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
 
 23 May: writing functions - Mitch L  
-(check out the code in the repo: "intoToFunctions.R")
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
 
 9 May: version control with git - Will C  
 http://wcornwell.github.io/versionControl/git_intro.html#1
 
 4 April: basic data manipulation in R - Andrew L  
-(check out the code in the repo: "subset")
+https://github.com/enterthesloth/BEES-ecocomp/tree/master/subset
 
 15 March: loops and logical operators in R - Mitch L  
-(check out the code in the repo: "introToLoops.R")
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/introToLoops.R
