@@ -5,11 +5,13 @@ BEES R User Group
 
 #### Upcoming sessions:
 
-1 August: Eve S - Profiling tool for R
+4 July: Break due to conferences, school holidays, semester break etc.
 
 18 July: ?
 
-4 July: Break due to conferences, school holidays, semester break etc.
+1 August: Eve S - Line Profiling in R
+
+15 August: Nick M - Raster and Vector handling in R 
 
 #### Past sessions:
 
