@@ -1,7 +1,14 @@
 
-BEES R User Group 
+BEES R User Group
 ---
+Informal style tutorials on data analysis in the R language, as well as general ecological computing  
+Run out of the Centre for Ecosystem Science:  
+http://www.ecosystem.unsw.edu.au/
+
 *alternate Fridays 12-1pm in rm 640 of the Biology building*
+
+Get on the mailing list for extra material and updates:  
+https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
