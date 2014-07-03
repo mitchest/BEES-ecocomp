@@ -25,7 +25,8 @@ https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
 9 May: version control with git - Will C  
 http://wcornwell.github.io/versionControl/git_intro.html#1
 
-4 April: basic data manipulation in R - Andrew L
+4 April: basic data manipulation in R - Andrew L  
+(check out the code in the repo: "subset")
 
 15 March: loops and logical operators in R - Mitch L  
 (check out the code in the repo: "introToLoops.R")
