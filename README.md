@@ -9,9 +9,9 @@ BEES R User Group
 
 18 July: ?
 
-1 August: Eve S - Line Profiling in R
+1 August: Line Profiling in R - Eve S
 
-15 August: Nick M - Raster and Vector handling in R 
+15 August: Raster and Vector handling in R - Nick M
 
 #### Past sessions:
 
