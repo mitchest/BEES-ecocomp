@@ -15,7 +15,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 4 July: Break due to conferences, school holidays, semester break etc.
 
-18 July: ?
+18 July: Break due to conferences, school holidays, semester break etc.
 
 1 August: Line Profiling in R - Eve S
 
