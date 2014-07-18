@@ -17,7 +17,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 18 July: Break due to conferences, school holidays, semester break etc.
 
-1 August: Line Profiling in R - Eve S
+1 August: Advanced/ streamlined data manipulation in R with dplyr - Eve S
 
 15 August: Raster and Vector handling in R - Nick M
 
