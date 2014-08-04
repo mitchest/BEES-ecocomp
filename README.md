@@ -22,6 +22,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 Tutorial by Hadley Wickham:  
 http://rpubs.com/hadley/dplyr-intro  
 Additional excercises:  
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/dplyr.R
 
 
 4 July: Break due to conferences, school holidays, semester break etc.
