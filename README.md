@@ -13,20 +13,25 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
+15 August: Plotting in R with the ggplot2 package - Ned H  
+
+29 August: Raster and Vector handling in R - Nick M
+
+#### Past sessions:
+1 August: Advanced streamlined data manipulation in R with dplyr - Eve S  
+Tutorial by Hadley Wickham:  
+http://rpubs.com/hadley/dplyr-intro  
+Additional excercises:  
+
+
 4 July: Break due to conferences, school holidays, semester break etc.
 
 18 July: Break due to conferences, school holidays, semester break etc.
 
-1 August: Advanced/ streamlined data manipulation in R with dplyr - Eve S
-
-15 August: Raster and Vector handling in R - Nick M
-
-#### Past sessions:
-
 20 June: regex - Andrew L  
 https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
 
-6 June: HPC with Katana - Mitch L  
+6 June: HPC with Katana - Mitch L 
 https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
 
 23 May: writing functions - Mitch L  
