@@ -32,7 +32,7 @@ https://github.com/enterthesloth/BEES-ecocomp/blob/master/dplyr.R
 20 June: regex - Andrew L  
 https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
 
-6 June: HPC with Katana - Mitch L 
+6 June: HPC with Katana - Mitch L  
 https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
 
 23 May: writing functions - Mitch L  
