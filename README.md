@@ -13,9 +13,11 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-15 August: Plotting in R with the ggplot2 package - Ned H  
+15 August: TBA  
 
 29 August: Raster and Vector handling in R - Nick M
+
+12 September: Plotting in R with the ggplot2 package - Ned H  
 
 #### Past sessions:
 1 August: Advanced streamlined data manipulation in R with dplyr - Eve S  
