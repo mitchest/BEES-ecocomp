@@ -13,11 +13,12 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-15 August: TBA  
-
-29 August: Raster and Vector handling in R - Nick M
+29 August: Mixed modelling - Ecostats session with Francis H
 
 12 September: Plotting in R with the ggplot2 package - Ned H  
+
+26 September: Raster and Vector handling in R - Nick M  
+
 
 #### Past sessions:
 1 August: Advanced streamlined data manipulation in R with dplyr - Eve S  
