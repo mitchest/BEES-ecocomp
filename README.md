@@ -8,6 +8,8 @@ http://www.ecosystem.unsw.edu.au/
 Get on the mailing list for extra material and updates:  
 https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
+
+
 ### When?
 *alternate Fridays 12-1pm in rm 640 of the Biology building*
 
@@ -37,6 +39,7 @@ https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
 
 6 June: HPC with Katana - Mitch L  
 https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
+<img src="mitch.jpg" width="200">
 
 23 May: writing functions - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
