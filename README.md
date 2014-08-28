@@ -15,7 +15,8 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-29 August: Mixed modelling - Ecostats session with Francis H
+29 August: Mixed modelling - Ecostats session with Francis H  
+http://eco-stats.blogspot.com.au/2014/08/r-lab-on-mixed-models-in-ecology.html
 
 12 September: Plotting in R with the ggplot2 package - Ned H  
 
@@ -35,17 +36,19 @@ https://github.com/enterthesloth/BEES-ecocomp/blob/master/dplyr.R
 18 July: Break due to conferences, school holidays, semester break etc.
 
 20 June: regex - Andrew L  
-https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
+https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf  
+<img src="andy.jpg" width="200">
 
 6 June: HPC with Katana - Mitch L  
-https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf
+https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf  
 <img src="mitch.jpg" width="200">
 
 23 May: writing functions - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
 
 9 May: version control with git - Will C  
-http://wcornwell.github.io/versionControl/git_intro.html#1
+http://wcornwell.github.io/versionControl/git_intro.html#1  
+<img src="will.jpg" width="200">
 
 4 April: basic data manipulation in R - Andrew L  
 https://github.com/enterthesloth/BEES-ecocomp/tree/master/subset
