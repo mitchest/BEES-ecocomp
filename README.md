@@ -41,14 +41,14 @@ https://www.dropbox.com/s/k0kxzoktqvtn95l/regex_tutorial.pdf
 
 6 June: HPC with Katana - Mitch L  
 https://www.dropbox.com/s/2c41r47qzgenl11/Katana.pdf  
-<img src="mitch.JPG" width="200">
+<img src="mitch.jpg" width="200">
 
 23 May: writing functions - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
 
 9 May: version control with git - Will C  
 http://wcornwell.github.io/versionControl/git_intro.html#1  
-<img src="will.jpg" width="200">
+<img src="will.JPG" width="200">
 
 4 April: basic data manipulation in R - Andrew L  
 https://github.com/enterthesloth/BEES-ecocomp/tree/master/subset
