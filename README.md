@@ -15,12 +15,15 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-12 September: Plotting in R with the ggplot2 package - Ned H  
+26 September: Break due to school holidays  
 
-26 September: Raster and Vector handling in R - Nick M  
+10 October: Raster and Vector handling in R - Nick M  
 
 
 #### Past sessions:
+12 September: Plotting in R with the ggplot2 package - Ned H  
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/ggplot_tutorial.Rmd  
+
 29 August: Mixed modelling - Ecostats session with Francis H  
 http://eco-stats.blogspot.com.au/2014/08/r-lab-on-mixed-models-in-ecology.html  
 
