@@ -15,15 +15,15 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-29 August: Mixed modelling - Ecostats session with Francis H  
-http://eco-stats.blogspot.com.au/2014/08/r-lab-on-mixed-models-in-ecology.html
-
 12 September: Plotting in R with the ggplot2 package - Ned H  
 
 26 September: Raster and Vector handling in R - Nick M  
 
 
 #### Past sessions:
+29 August: Mixed modelling - Ecostats session with Francis H  
+http://eco-stats.blogspot.com.au/2014/08/r-lab-on-mixed-models-in-ecology.html  
+
 1 August: Advanced streamlined data manipulation in R with dplyr - Eve S  
 Tutorial by Hadley Wickham:  
 http://rpubs.com/hadley/dplyr-intro  
