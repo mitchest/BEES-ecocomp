@@ -15,12 +15,14 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-26 September: Break due to school holidays  
-
-10 October: Raster and Vector handling in R - Nick M  
-
+24 October: TBA
 
 #### Past sessions:
+10 October: Raster and Vector handling in R - Nick M  
+https://github.com/enterthesloth/BEES-ecocomp/tree/master/Rasters  
+
+26 September: Break due to school holidays  
+
 12 September: Plotting in R with the ggplot2 package - Ned H  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/ggplot_tutorial.Rmd  
 
