@@ -15,11 +15,12 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
+7 November: BEES end-of-year party, yiew!
+
+#### Past sessions:
 31 October: Inference with spatially correlated data (with mixed effects models) - Ecostats session with Gordana P  
 http://eco-stats.blogspot.com.au/2014/10/r-lab-inference-with-spatially.html  
 
-
-#### Past sessions:
 10 October: Raster and Vector handling in R - Nick M  
 https://github.com/enterthesloth/BEES-ecocomp/tree/master/Rasters  
 
