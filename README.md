@@ -15,9 +15,14 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-7 November: BEES end-of-year party, yiew!
+21 November: TBA  
 
-#### Past sessions:
+5 December: Distance-based statistics in R (with Vegan) - Shaun N  
+
+#### Past sessions:  
+
+7 November: BEES end-of-year party, yiew!  
+
 31 October: Inference with spatially correlated data (with mixed effects models) - Ecostats session with Gordana P  
 http://eco-stats.blogspot.com.au/2014/10/r-lab-inference-with-spatially.html  
 
