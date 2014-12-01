@@ -15,12 +15,11 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-21 November: CANAPE (Categorical Analysis of Neo and Palaeo Endemism) with Biodiverse - Shawn L  
-http://biodiverse-analysis-software.blogspot.com.au/2014/11/canape-categorical-analysis-of-palaeo.html  
-
 5 December: Distance-based statistics in R (with Vegan) - Shaun N  
 
 #### Past sessions:  
+21 November: CANAPE (Categorical Analysis of Neo and Palaeo Endemism) with Biodiverse - Shawn L  
+http://biodiverse-analysis-software.blogspot.com.au/2014/11/canape-categorical-analysis-of-palaeo.html  
 
 7 November: BEES end-of-year party, yiew!  
 
