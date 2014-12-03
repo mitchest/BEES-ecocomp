@@ -16,6 +16,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 #### Upcoming sessions:
 
 5 December: Distance-based statistics in R (with Vegan) - Shaun N  
+https://github.com/enterthesloth/BEES-ecocomp/tree/master/vegan  
 
 #### Past sessions:  
 21 November: CANAPE (Categorical Analysis of Neo and Palaeo Endemism) with Biodiverse - Shawn L  
