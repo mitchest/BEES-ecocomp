@@ -15,10 +15,19 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
+17 April: writing functions - Mitch L  
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
+
+#### Past sessions:  
+27 March: Species traits in multivariate analysis - Ecostats session with David W  
+http://www.eco-stats.blogspot.com.au/2015/03/species-traits-in-multivariate-analysis.html  
+
+20 February: R coding 101 - Mitch L  
+https://github.com/andrewletten/BEES-ecocomp/blob/master/RScripting101.R  
+
 5 December: Distance-based statistics in R (with Vegan) - Shaun N  
 https://github.com/enterthesloth/BEES-ecocomp/tree/master/vegan  
 
-#### Past sessions:  
 21 November: CANAPE (Categorical Analysis of Neo and Palaeo Endemism) with Biodiverse - Shawn L  
 http://biodiverse-analysis-software.blogspot.com.au/2014/11/canape-categorical-analysis-of-palaeo.html  
 
