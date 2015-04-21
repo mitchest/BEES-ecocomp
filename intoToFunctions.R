@@ -147,19 +147,19 @@ bar <- function() {
 # Have shown mostly trivial examples, what about something practical
 
 # Plotting
-MyPlot = function(x, y, data, xlab=x, ylab=y) {
-  formula = as.formula(paste0(x,"~",y))
+MyPlot = function(pred, resp, data, xlab=pred, ylab=resp) {
+  formula = as.formula(paste0(resp,"~",pred))
   plot(formula, data=data, xlab=xlab, ylab=ylab) +
-    text(0,max(data[,x]),paste0("model used: ",x,"~",y), pos=4)
+    text(0,max(data[,pred]),paste0("model used: ",resp,"~",pred), pos=4)
 }
-MyPlot("temp", "time", beaver1)
-MyPlot("temp", "time", beaver1, xlab="Beaver's body temperature", ylab="Time of Day")
+MyPlot("time", "temp", beaver1)
+MyPlot("time", "temp", beaver1, ylab="Beaver's body temperature", xlab="Time of Day")
 
 
 # Print model stats
-PrintFit = function(x, y, data, plotResid=FALSE){
+PrintFit = function(pred, resp, data, plotResid=FALSE){
   # fit the model
-  formula = as.formula(paste0(x,"~",y))
+  formula = as.formula(paste0(resp,"~",pred))
   model.fit = lm(formula, data=data)
   # print some stats
   print(paste0("Sample n = ",nrow(data)))
@@ -167,11 +167,12 @@ PrintFit = function(x, y, data, plotResid=FALSE){
   print(paste0("R^2 = ",summary(model.fit)$r.squared))
   # plot residuals?
   if (plotResid == TRUE) {
-    plot(model.fit$residuals)
+    plot(model.fit$residuals~predict(model.fit))
+    abline(h=0, lty=3)
   }
 }
-PrintFit("temp", "time", beaver1)
-PrintFit("temp", "time", beaver1, plotResid=TRUE)
+PrintFit("time", "temp", beaver1)
+PrintFit("time", "temp", beaver1, plotResid=TRUE)
 
 
 

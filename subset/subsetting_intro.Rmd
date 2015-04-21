@@ -18,6 +18,7 @@ Getting to know your data better and betterer...
 ```{r}
 str(traits)
 colnames(traits)
+row.names(traits)
 dim(traits)
 summary(traits)
 head(traits)
