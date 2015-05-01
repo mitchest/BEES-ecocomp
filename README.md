@@ -15,10 +15,15 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
-17 April: writing functions - Mitch L  
-https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R
+1 May: R Troubleshooting Session  
+Come along and share your problems, and see if we can solve them...  
+
+15 May: Sharing your knowledge (with R Markdown) - Alistair P
 
 #### Past sessions:  
+17 April: writing functions - Mitch L  
+https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R  
+
 27 March: Species traits in multivariate analysis - Ecostats session with David W  
 http://www.eco-stats.blogspot.com.au/2015/03/species-traits-in-multivariate-analysis.html  
 
