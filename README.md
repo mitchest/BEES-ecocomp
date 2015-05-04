@@ -15,12 +15,14 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
+15 May: Using the data.table package - Ned H  
+
+29 May: Sharing your knowledge (with R Markdown) - Alistair P  
+
+#### Past sessions:  
 1 May: R Troubleshooting Session  
 Come along and share your problems, and see if we can solve them...  
 
-15 May: Sharing your knowledge (with R Markdown) - Alistair P
-
-#### Past sessions:  
 17 April: writing functions - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R  
 
