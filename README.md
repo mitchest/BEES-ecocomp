@@ -19,6 +19,8 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 29 May: Sharing your knowledge (with R Markdown) - Alistair P  
 
+12 June: Interactive graphics with RShiny - Will C
+
 #### Past sessions:  
 1 May: R Troubleshooting Session  
 Come along and share your problems, and see if we can solve them...  
