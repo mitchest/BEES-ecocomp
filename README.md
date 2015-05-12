@@ -23,6 +23,9 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 1 May: R Troubleshooting Session  
 Come along and share your problems, and see if we can solve them...  
 
+24 April: Zero inflation in Ecology - Ecostats session with Gordy P  
+http://www.eco-stats.blogspot.com.au/2015/04/zero-inflation-in-ecology.html  
+
 17 April: writing functions - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/intoToFunctions.R  
 
