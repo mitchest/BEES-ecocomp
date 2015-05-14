@@ -1,0 +1,402 @@
+---
+title: "data.table tutorial"
+author: "ned haughton"
+date: >
+    ```{r, echo=FALSE}
+    library(knitr)
+    opts_chunk$set(comment = NA)
+    format(Sys.time(), '%B %d, %Y')
+    ```
+output:
+    html_document:
+        toc: true
+        toc_depth: 3
+---
+
+```{r library load}
+# install.packages('data.table')
+library(data.table)
+```
+
+# R `data.table` tutorial
+
+This tutorial is based largely on these documents:
+
+- the [data.table intro](http://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.pdf), as well as `help(data.table)`
+- [Matt Dowle's tutorial](http://user2014.stat.ucla.edu/files/tutorial_Matt.pdf)
+- the [datacamp tutorial](http://blog.datacamp.com/data-table-r-tutorial/)
+- Stackoverflow questions:
+  [here](http://stackoverflow.com/questions/27511604/dplyr-on-data-table-am-i-really-using-data-table), [here](http://stackoverflow.com/questions/21435339/data-table-vs-dplyr-can-one-do-something-well-the-other-cant-or-does-poorly/27840349#27840349)
+
+## What is data.table, and why should you use it?
+
+- (almost) a drop in replacement for `data.frame` 
+    - works the same with plotting functions
+- More concise syntax
+- More memory efficient, and often much quicker with data transformations, especially for big data.
+- Built in support for groupby operations
+
+#### cons:
+
+- steep learning curve
+- some new gotchas
+    - some data.frame syntax won't work
+    - by-reference modifications means you might need to `copy()` in some instances
+
+## As a drop-in replacement
+
+```{r classes}
+class(iris)
+
+iris_dt <- data.table(iris)
+
+class(iris_dt)
+```
+
+`data.table`s print nicely:
+```{r printing}
+iris_dt
+```
+
+It's easy to convert back to a `data.frame`
+```{r convert to df}
+identical(iris, as.data.frame(iris_dt))
+```
+
+In-place conversion with `setDT(df)` and `setDF(dt)` - no assignment.
+
+`data.table` works fine with `dplyr`, you can freely mix and match syntax.
+
+`data.table` implements a bunch of optimisations for standard R methods for working with data.frame: `order()`, `merge()`, etc. so you can use that syntax if you prefer, and retain the speed and memory benefits.
+
+## Selecting
+
+data.table's selection uses the format `dt[i, j, by]`.
+
+- `i` is the row selector. It is usually a number, a vector of numbers, or a boolean vector.
+- `j` is the column selector. It is usually a column or a **list** of columns (unquoted). You can modify the data in the table with this argument.
+- `by` allows group-by operations. It should be a column or **list** of columns (unquoted).
+
+These three arguments can be passed in order without their names
+
+If you use SQL or dplyr, think of it like this:
+
++------------+------------+---------------------------+----------+
+| package    | rows       | cols                      | grouping |
++============+============+===========================+==========+
+| data.table | i          | j                         | by       |
++------------+------------+---------------------------+----------+
+| dplyr      | filter     | select, mutate, summarise | group_by |
++------------+------------+---------------------------+----------+
+| SQL        | WHERE      | SELECT                    | GROUP BY |
++------------+------------+---------------------------+----------+
+
+
+Detailed help with arguments at `help(data.table)`.
+
+### Selecting rows with `i`
+
+```{r i select}
+iris_dt[30:32]
+```
+
+Column names are evaluated, so you can use them with comparators to select rows
+```{r i boolean select}
+iris_dt[Petal.Length > 6.5]
+
+iris_dt[Sepal.Length < 5 & Species == 'virginica']
+```
+
+### selecting columns with `j`
+
+Selecting a single column returns a vector
+```{r j select}
+iris_dt[45:55, Petal.Length]
+```
+
+Selecting with a list of columns returns a data.table
+```{r j select multiple}
+iris_dt[, list(Petal.Width, Petal.Length)]
+```
+
+You can of course combine these:
+
+```{r ij selection}
+iris_dt[Species=='setosa' & Sepal.Length<4.5, list(Petal.Width, Petal.Length)]
+```
+
+
+## Aggregation
+
+- the `j` argument can accept functions of columns, or lists of functions of columns:
+
+```{r aggregate}
+iris_dt[, mean(Petal.Length)]
+
+iris_dt[, list(mean(Sepal.Length),mean(Petal.Length))]
+```
+
+With names:
+```{r named aggregate}
+iris_dt[, list(mean_SL=mean(Sepal.Length),mean_PL=mean(Petal.Length))]
+```
+
+### Group-by
+
+Group-by Species, and then average:
+```{r groupby}
+iris_dt[, list(mean_SL=mean(Sepal.Length), mean_PL=mean(Petal.Length)), by=Species]
+```
+
+The above returns groups in the order that they first appear in the data. To sort by group, you can `setkey(Species)` or use `keyby=Species` instead.
+
+
+### Assignment
+
+You can add or modify columns in-place (e.g. without copying the entire data.table, as with `data.frame`) using the `:=` function:
+
+
+```{r assignment}
+{
+iris_dt[, Group:=c('A','B')]
+iris_dt
+}
+```
+
+
+## Internal variables
+
+There are a number of special internal variables that allow you to operate more neatly on the data:
+
+- `.SD` contains all the columns to be acted on (e.g. excludes the Group-by columns):
+
+```{r .SD}
+iris_dt[, lapply(.SD, mean), by=list(Species, Group)]
+```
+
+- `.I` is a vector of the row indices of the group.
+
+```{r .I}
+iris_dt[, length(.I), by=cut(Sepal.Length, seq(4, 8, by=0.5))][order(cut)]
+```
+
+- `.N` is the number rows in the group
+
+```{r .N}
+# equivalent to above
+iris_dt[, .N, by=cut(Sepal.Length, seq(4, 8, by=0.5))][order(cut)]
+```
+
+- `.BY` is the group name (e.g. 'setosa', in one of the groups of r`iris_dt[by=Species]`
+
+- `.GRP` the number of the group
+
+```{r .BY .GRP}
+iris_dt[, list(by=copy(.BY), grp=.GRP), by=Species]
+```
+
+> **WARNING:** because data.table does a lot of in-place/by-reference modification, it may be necessary in some cases to `copy()` a variable, to avoid it getting over-written the next time that variable is assigned.
+>
+> ```{r in-place warning}
+> iris_dt[, list(by=.BY, grp=.GRP), by=Species]
+> ```
+
+
+## `set*` functions
+
+- `setDF`: Convert a data.table to data.frame by reference
+- `setDT`: Convert lists and data.frames to data.table by reference
+- `setattr`: Set attributes to objects by reference
+- `setkey`: Create key on a data table
+- `setorder`: Fast reordering of a data.table by reference
+
+## Keys and joining
+
+data.table does fast joining using the keys set on each table, by passing one data.table as the `i=` argument to the other table:
+
+```{r}
+df1 = data.frame(CustomerId=c(1:4),Product=c(rep(c("Toaster", "Radio"), 2)))
+df2 = data.frame(CustomerId=c(1,4,3),State=c(rep("Alabama",2),rep("Ohio",1)))
+
+setDT(df1)
+setDT(df2)
+setkey(df1, CustomerId)
+setkey(df2, CustomerId)
+
+str(df1)
+
+str(df2)
+    
+df1[df2]
+    
+df2[df1]
+    
+# not join:
+df1[!df2]
+```
+
+`data.table` optimises the R base `merge` function, so `df1[df2]` is the same as `merge(df1, df2)`, if you prefer that syntax, but it's *way* faster than the `data.frame` version of `merge`.
+
+## Speed and memory
+
+### Benchmarking split-apply-combine
+
+Comparison using the diamonds dataset
+
+- filter out "Fair" cuts,
+- group by cut
+- calculate average, median, and size of each group
+- recombine into a summary table
+
+```{r benchmark}
+library(rbenchmark)
+library(dplyr)
+library(data.table)
+
+diamonds_df <- ggplot2::diamonds
+diamonds_dt <- data.table(diamonds_df)
+
+benchmark(
+# Base R by solution: 
+a_R_by = {df <- diamonds_df[diamonds_df$cut!="Fair", ]
+         results <- by(df, df$cut, function(grp) {
+             return(list(AvgPrice = mean(grp$price),
+                         MedianPrice = as.numeric(median(grp$price)),
+                         Count = nrow(grp)))
+             })
+         results <- data.frame(lapply(data.frame(do.call('rbind', results)), unlist))
+         results[order(results$Count),]
+         },
+
+# dplyr solution
+b_dplyr = diamonds_dt %>%
+    filter(cut != "Fair") %>%
+    group_by(cut) %>%
+    summarize(AvgPrice = mean(price),
+                 MedianPrice = as.numeric(median(price)),
+                 Count = n()) %>%
+    arrange(desc(Count)),
+
+# data.tables
+c_data.table = diamonds_dt[cut != "Fair", 
+                        list(AvgPrice = mean(price),
+                             MedianPrice = as.numeric(median(price)),
+                             Count = .N), by = cut][order(-Count)],
+
+replications=20,
+columns=c("test", "replications", "elapsed", "relative")
+)
+```
+
+
+### Reading data
+
+- Comparison of reading a medium sized dataset (42Mb):
+
+```{r setwd, echo=FALSE}
+setwd('~/phd/docs/presentations/data.table.tutorial/')
+```
+
+*This is just an arbitrary, large .csv file I had laying around.*
+```{r benchmark load csv}
+system2('file', 'loobos.csv', stdout=TRUE)
+system2('ls', '-lah loobos.csv', stdout=TRUE)
+    
+benchmark(
+    read.csv = loobos_df <- read.csv('loobos.csv', stringsAsFactors=FALSE),
+    read.csv.classes = {
+        colclasses <- sapply(loobos_df, class)
+        loobos_df <- read.csv('loobos.csv', colClasses=colclasses, stringsAsFactors=FALSE)
+    },
+    data.table.fread = {
+        loobos_dt <- fread('loobos.csv')
+        setnames(loobos_dt, colnames(loobos_df))
+    },
+    replications=5,
+    columns=c("test", "replications", "elapsed", "relative")
+    )
+```
+
+
+### Memory profiling
+
+Make some big dataframes/tables:
+```{r mem prof setup}
+reps = 20
+    
+diamonds_df <- rbind(diamonds_df, diamonds_df, diamonds_df, diamonds_df, diamonds_df,
+                     diamonds_df, diamonds_df, diamonds_df, diamonds_df, diamonds_df)
+diamonds_dt <- data.table(diamonds_df)
+print(object.size(diamonds_df), units='Mb')
+print(object.size(diamonds_dt), units='Mb')
+```
+
+#### base R profile
+```{r mem prof base}
+max_mem <- rep(NA, reps)
+for (i in 1:reps) {
+Rprof(filename = "baseR.Rprof.out", memory.profiling = TRUE, interval=0.001)
+df <- diamonds_df[diamonds_df$cut!="Fair", ]
+results <- by(df, df$cut, function(grp) {
+                  return(list(AvgPrice = mean(grp$price),
+                              MedianPrice = as.numeric(median(grp$price)),
+                              Count = nrow(grp)))
+})
+results <- data.frame(lapply(data.frame(do.call('rbind', results)), unlist))
+results[order(results$Count),]
+Rprof(NULL)
+max_mem[i] <- max(summaryRprof(filename = "baseR.Rprof.out", memory='both')$by.total$mem.total)
+}
+summary(max_mem)
+```
+
+Uses more than 4 times the memory of the data.frame it's manipulating
+
+#### dplyr profile
+```{r mem prof dplyr}
+max_mem <- rep(NA, 20)
+for (i in 1:20) {
+Rprof(filename = "dplyr.Rprof.out", memory.profiling = TRUE, interval=0.001)
+diamonds_df %>%
+    filter(cut != "Fair") %>%
+    group_by(cut) %>%
+    summarize(AvgPrice = mean(price),
+              MedianPrice = as.numeric(median(price)),
+              Count = n()) %>%
+    arrange(desc(Count))
+Rprof(NULL)
+max_mem[i] <- max(summaryRprof(filename = "dplyr.Rprof.out", memory='both')$by.total$mem.total)
+}
+summary(max_mem)
+```
+
+Uses about double the memory of the data frame it's manipulating, because it makes a copy at each step (but df sizes get smaller, so not quite double in some cases).
+
+#### data.table R profile
+```{r mem prof data.table}
+setDT(diamonds_df)
+max_mem <- rep(NA, 20)
+for (i in 1:20) {
+Rprof(filename = "data.table.Rprof.out", memory.profiling = TRUE, interval=0.001)
+diamonds_df[cut != "Fair", 
+            list(AvgPrice = mean(price),
+                 MedianPrice = as.numeric(median(price)),
+                 Count = .N),
+            by = cut][order(-Count)]
+Rprof(NULL)
+max_mem[i] <- max(summaryRprof(filename = "data.table.Rprof.out", memory='both')$by.total$mem.total)
+}
+summary(max_mem)
+```
+
+Only uses about 10% more memory than the data.table it's manipulating - never copies the whole data set.
+
+This is true even with assignment, where it only ever copies at most one column at a time.
+
+## Summary
+
+- More concise syntax
+    - sometimes clearer, sometimes not as clean as `dplyr`
+- Faster and more memory efficient
+    - stopped my computer from crashing daily when choking on 500Mb datasets (with 8Gb ram)
+
