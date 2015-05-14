@@ -399,4 +399,3 @@ This is true even with assignment, where it only ever copies at most one column 
     - sometimes clearer, sometimes not as clean as `dplyr`
 - Faster and more memory efficient
     - stopped my computer from crashing daily when choking on 500Mb datasets (with 8Gb ram)
-
