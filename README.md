@@ -15,14 +15,21 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:
 
+29 May: Eco-stats session on missing data analysis - Firouzeh N  
+
+5 June: Sharing your knowledge (with R Markdown) - Alistair P  
+
+17/19 June:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference
+
+June 26: Eco-stats session - topic/presenter TBA  
+
+10 July: Interactive graphics with RShiny - Will C  
+
+#### Past sessions:  
+
 15 May: Using the data.table package - Ned H  
 https://github.com/andrewletten/BEES-ecocomp/blob/master/data.table.tutorial.Rmd  
 
-29 May: Sharing your knowledge (with R Markdown) - Alistair P  
-
-12 June: Interactive graphics with RShiny - Will C  
-
-#### Past sessions:  
 1 May: R Troubleshooting Session  
 Come along and share your problems, and see if we can solve them...  
 
@@ -40,6 +47,9 @@ https://github.com/andrewletten/BEES-ecocomp/blob/master/RScripting101.R
 
 5 December: Distance-based statistics in R (with Vegan) - Shaun N  
 https://github.com/enterthesloth/BEES-ecocomp/tree/master/vegan  
+
+28 November: Eco-stats lab on LM/GLM/GLMM with R2jags - Andrew L  
+http://www.eco-stats.blogspot.com.au/2014/11/generalised-linear-mixed-models-with_25.html  
 
 21 November: CANAPE (Categorical Analysis of Neo and Palaeo Endemism) with Biodiverse - Shawn L  
 http://biodiverse-analysis-software.blogspot.com.au/2014/11/canape-categorical-analysis-of-palaeo.html  
@@ -65,7 +75,6 @@ Tutorial by Hadley Wickham:
 http://rpubs.com/hadley/dplyr-intro  
 Additional excercises:  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/dplyr.R
-
 
 4 July: Break due to conferences, school holidays, semester break etc.
 
