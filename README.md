@@ -19,6 +19,8 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 5 June: Sharing your knowledge (with R Markdown) - Alistair P  
 
+8-12 June : no lab due to PRF week  
+
 17/19 June:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference
 
 June 26: Eco-stats session - topic/presenter TBA  
