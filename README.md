@@ -21,9 +21,9 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 8-12 June : no lab due to PRF week  
 
-17/19 June:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference
+June 19 (probably): Eco-stats session - topic/presenter TBA  
 
-June 26: Eco-stats session - topic/presenter TBA  
+1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
 
 10 July: Interactive graphics with RShiny - Will C  
 
