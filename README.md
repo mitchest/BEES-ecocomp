@@ -13,13 +13,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 ### When?
 *alternate Fridays 12-1pm in rm 640 of the Biology building*
 
-#### Upcoming sessions:
-
-29 May: Eco-stats session on missing data analysis - Firouzeh N  
-
-5 June: Sharing your knowledge (with R Markdown) - Alistair P  
-
-8-12 June : no lab due to PRF week  
+#### Upcoming sessions:  
 
 June 19 (probably): Eco-stats session - topic/presenter TBA  
 
@@ -28,6 +22,13 @@ June 19 (probably): Eco-stats session - topic/presenter TBA
 10 July: Interactive graphics with RShiny - Will C  
 
 #### Past sessions:  
+
+29 May: Eco-stats session on missing data analysis - Firouzeh N  
+http://www.eco-stats.blogspot.com.au/2015/05/missing-data-analysis.html  
+
+5 June: Sharing your knowledge (with R Markdown) - Alistair P  
+
+8-12 June : no lab due to PRF week  
 
 15 May: Using the data.table package - Ned H  
 https://github.com/andrewletten/BEES-ecocomp/blob/master/data.table.tutorial.Rmd  
