@@ -15,11 +15,11 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
 
-1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
-
 10 July: Intro to Git (version control) - Will C  
 
 #### Past sessions:  
+1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
+
 June 19: Eco-stats lab on Bayesian Ordination and Regression AnaLysis - Francis H  
 http://eco-stats.blogspot.com.au/2015/06/its-boral-time.html  
 
