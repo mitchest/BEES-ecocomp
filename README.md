@@ -8,14 +8,12 @@ http://www.ecosystem.unsw.edu.au/
 Get on the mailing list for extra material and updates:  
 https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
-
-
 ### When?
 *alternate Fridays 12-1pm in rm 640 of the Biology building*
 
 #### Upcoming sessions:  
 
-10 July: Intro to Git (version control) - Will C  
+10 July: Intro to Git (version control) - Will C  (Happening right now!)
 
 #### Past sessions:  
 1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
