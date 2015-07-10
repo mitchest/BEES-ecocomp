@@ -13,6 +13,8 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
 
+We need more future sessions. 
+
 10 July: Intro to Git (version control) - Will C  (Happening right now and again right now!)
 
 #### Past sessions:  
