@@ -13,11 +13,11 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
 
-We need more future sessions. 
-
-10 July: Intro to Git (version control) - Will C  (Happening right now and again right now!)
+We need more future sessions!!! Please volunteer!!!
 
 #### Past sessions:  
+10 July: Intro to Git (version control) - Will C  
+
 1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
 
 June 19: Eco-stats lab on Bayesian Ordination and Regression AnaLysis - Francis H  
