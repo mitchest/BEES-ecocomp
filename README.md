@@ -13,7 +13,7 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
 
-10 July: Intro to Git (version control) - Will C  (Happening right now!)
+10 July: Intro to Git (version control) - Will C  (Happening right now and again right now!)
 
 #### Past sessions:  
 1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
