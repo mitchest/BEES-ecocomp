@@ -12,8 +12,11 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 *alternate Fridays 12-1pm in rm 640 of the Biology building*
 
 #### Upcoming sessions:  
+  
+24 July: R Troubleshooting Session  
+Come along and share your problems, and see if we can solve them...  
 
-We need more future sessions!!! Please volunteer!!!
+We need more future sessions!!! Please volunteer!!!  
 
 #### Past sessions:  
 10 July: Intro to Git (version control) - Will C  
