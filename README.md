@@ -13,12 +13,12 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
   
-24 July: R Troubleshooting Session  
-Come along and share your problems, and see if we can solve them...  
-
 We need more future sessions!!! Please volunteer!!!  
 
 #### Past sessions:  
+24 July: R Troubleshooting Session  
+Come along and share your problems, and see if we can solve them...  
+
 10 July: Intro to Git (version control) - Will C  
 
 1/3 July:  Workshop on LM/GLM/GLMM with freqentist and bayesian inference  
