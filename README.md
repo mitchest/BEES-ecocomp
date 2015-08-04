@@ -16,6 +16,9 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 We need more future sessions!!! Please volunteer!!!  
 
 #### Past sessions:  
+31 July: Ecostats lab on time-series forcasting - Jakub S  
+http://eco-stats.blogspot.com.au/2015/07/forecasting-with-time-series-data.html  
+
 24 July: R Troubleshooting Session  
 Come along and share your problems, and see if we can solve them...  
 
@@ -106,3 +109,6 @@ https://github.com/enterthesloth/BEES-ecocomp/tree/master/subset
 
 15 March: loops and logical operators in R - Mitch L  
 https://github.com/enterthesloth/BEES-ecocomp/blob/master/introToLoops.R
+
+### Sharing
+Generally, any code up here is freely usable and distributable without prejudice, unless it is stated that it has come directly from another source  
