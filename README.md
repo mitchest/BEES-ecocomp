@@ -111,4 +111,5 @@ https://github.com/mitchest/BEES-ecocomp/tree/master/subset
 https://github.com/mitchest/BEES-ecocomp/blob/master/introToLoops.R
 
 ### Sharing
-Generally, any code up here is freely usable and distributable without prejudice, unless it is stated that it has come directly from another source  
+Generally, any code up here is freely usable and distributable without prejudice (under CC BY), unless it is stated that it has come directly from another source  
+![alt text](http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png "CC BY")  
