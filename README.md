@@ -16,6 +16,9 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 We need more future sessions!!! Please volunteer!!!  
 
 #### Past sessions:  
+28 August: Ecostats lab on survival analysis - Gordy P  
+http://eco-stats.blogspot.com.au/2015/08/time-to-event-analysis-survival-analysis.html  
+
 31 July: Ecostats lab on time-series forcasting - Jakub S  
 http://eco-stats.blogspot.com.au/2015/07/forecasting-with-time-series-data.html  
 
