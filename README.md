@@ -13,9 +13,15 @@ https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp
 
 #### Upcoming sessions:  
   
+Up until the end of the year, there will be weekly reading groups leading up to the Eco-stats conference:  
+http://eco-stats15.blogspot.com.au/  
+  
 We need more future sessions!!! Please volunteer!!!  
-
+  
 #### Past sessions:  
+25 September: Ecostats lab on survival analysis - Loic T  
+http://eco-stats.blogspot.com.au/2015/09/analysis-of-ordinal-data-in-ecology.html  
+  
 28 August: Ecostats lab on survival analysis - Gordy P  
 http://eco-stats.blogspot.com.au/2015/08/time-to-event-analysis-survival-analysis.html  
 
