@@ -3,10 +3,16 @@
 Please note that the BEES R User Group has been superseded by the Environmental Computing initiative:  
 http://environmentalcomputing.net/  
 
-Checkout the website for tutorials as well as the calendar for upcoming sessions.  
+Checkout the website for tutorials as well as the calendar for upcoming sessions. The same mailing list is still in use:  
+https://www.lists.unsw.edu.au/mailman/listinfo/bees-ecocomp  
+
+Cheers, and hope to see you at the sessions!   
 
 
-## OLD INFORMATION  
+################################
+####### /OLD INFORMATION/ ######
+################################
+
 ## BEES R User Group  
 
 Informal style tutorials on data analysis in the R language, as well as general ecological computing, 
